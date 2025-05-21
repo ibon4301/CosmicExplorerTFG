@@ -67,7 +67,7 @@ export default function HomePage() {
   const currentModel = spaceshipModels[currentModelIndex]
   // ----- FIN MODIFICADO -----
 
-  const controlsRef = useRef<any>()
+  const controlsRef = useRef<any>(null)
 
   // ----- NUEVO: Estado para la rotación del cohete -----
   const [rocketRotation, setRocketRotation] = useState(0)
@@ -214,7 +214,7 @@ export default function HomePage() {
                 >
                   <Rocket className="h-5 w-5" />
                 </motion.div>
-                {t("buttons.resetViewText", "Resetear Vista")}
+                {t("buttons.resetViewText")}
               </button>
             </div>
           )}
