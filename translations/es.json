@@ -90,10 +90,11 @@
   },
   "solarSystem": {
     "title": "Nuestro Sistema Solar",
-    "subtitle": "Explora los planetas, lunas, asteroides y cometas que orbitan nuestro Sol.",
+    "subtitle": "Explora los planetas de nuestro sistema solar y descubre datos interesantes sobre ellos.",
     "interactive": "Interactivo",
     "exploreTitle": "Explora Nuestro Sistema Solar",
-    "exploreSubtitle": "Haz clic en cualquier planeta para conocer más sobre sus características únicas.",
+    "exploreSubtitle": "Explora el sistema solar en 3D desde escritorio o tablet.",
+    "no3dMobile": "La visualización 3D del sistema solar solo está disponible en escritorio o tablet.",
     "planetDetails": "Detalles de los Planetas",
     "planetDetailsSubtitle": "Aprende datos fascinantes sobre cada planeta de nuestro sistema solar.",
     "facts": {
@@ -153,7 +154,9 @@
     "collisionsSubtitle": "Cuando las galaxias se encuentran, se desarrollan espectaculares eventos cósmicos a lo largo de miles de millones de años.",
     "futureTitle": "El Futuro de Nuestra Galaxia",
     "futureDesc": "En unos 4.500 millones de años, las galaxias de la Vía Láctea y Andrómeda colisionarán, creando una nueva galaxia elíptica a veces llamada 'Lactómeda'. Esta colisión no será destructiva para las estrellas individuales debido a las vastas distancias entre ellas, pero remodelará dramáticamente ambas galaxias.",
-    "collisionEffects": "Las colisiones de galaxias desencadenan una intensa formación estelar a medida que las nubes de gas se comprimen, y también pueden activar agujeros negros dormidos, convirtiéndolos en núcleos galácticos activos."
+    "collisionEffects": "Las colisiones de galaxias desencadenan una intensa formación estelar a medida que las nubes de gas se comprimen, y también pueden activar agujeros negros dormidos, convirtiéndolos en núcleos galácticos activos.",
+    "nebulae": "Nebulosas",
+    "nebulaeDesc": "Observa las hermosas nubes interestelares de gas y polvo donde nacen y mueren las estrellas."
   },
   "blackHoles": {
     "title": "Agujeros Negros: Enigmas Cósmicos",

@@ -93,7 +93,8 @@
     "subtitle": "Explore the planets, moons, asteroids, and comets that orbit our Sun.",
     "interactive": "Interactive",
     "exploreTitle": "Explore Our Solar System",
-    "exploreSubtitle": "Click on any planet to learn more about its unique characteristics.",
+    "exploreSubtitle": "Explore the solar system in 3D from desktop or tablet.",
+    "no3dMobile": "The 3D visualization of the solar system is only available on desktop or tablet.",
     "planetDetails": "Planet Details",
     "planetDetailsSubtitle": "Learn fascinating facts about each planet in our solar system.",
     "facts": {
@@ -153,7 +154,9 @@
     "collisionsSubtitle": "When galaxies meet, spectacular cosmic events unfold over billions of years.",
     "futureTitle": "The Future of Our Galaxy",
     "futureDesc": "In about 4.5 billion years, the Milky Way and Andromeda galaxies will collide, creating a new elliptical galaxy sometimes called 'Milkomeda.' This collision won't be destructive to individual stars due to the vast distances between them, but it will dramatically reshape both galaxies.",
-    "collisionEffects": "Galaxy collisions trigger intense star formation as gas clouds are compressed, and they can also activate dormant black holes, turning them into active galactic nuclei."
+    "collisionEffects": "Galaxy collisions trigger intense star formation as gas clouds are compressed, and they can also activate dormant black holes, turning them into active galactic nuclei.",
+    "nebulae": "Nebulae",
+    "nebulaeDesc": "Witness the beautiful interstellar clouds of gas and dust where stars are born and die."
   },
   "blackHoles": {
     "title": "Black Holes: Cosmic Enigmas",

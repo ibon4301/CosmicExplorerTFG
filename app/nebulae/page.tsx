@@ -11,6 +11,7 @@ import { useLanguage } from "@/contexts/language-context"
 import GlassmorphismCard from "@/components/glassmorphism-card"
 import ScrollReveal from "@/components/scroll-reveal"
 import ParallaxSection from "@/components/parallax-section"
+import React from "react"
 
 export default function NebulaePage() {
   const { t, language } = useLanguage()
@@ -203,7 +204,7 @@ export default function NebulaePage() {
     },
   }
 
-  const nebulaData = translations[language] || translations.en
+  const nebulaData = translations[language as "en" | "es"] || translations.en
 
   return (
     <div
@@ -213,22 +214,20 @@ export default function NebulaePage() {
       <Header />
 
       <main className="flex-1 pt-16">
-        {/* Hero Section with Parallax */}
-        <section
-          ref={containerRef}
-          className="relative w-full bg-gradient-to-b from-black to-zinc-900 py-12 md:py-24 overflow-hidden"
-        >
-          {/* Animated background elements */}
-          <motion.div
-            className="absolute top-20 left-[10%] w-64 h-64 rounded-full bg-pink-500/5 blur-3xl"
-            style={{ y }}
-          />
-          <motion.div
-            className="absolute bottom-10 right-[10%] w-80 h-80 rounded-full bg-purple-500/5 blur-3xl"
-            style={{ y: useTransform(scrollYProgress, [0, 1], [0, -200]) }}
-          />
-
-          <div className="container relative z-10 px-4 md:px-6">
+        {/* Hero Section estilo black hole */}
+        <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-black to-zinc-900 py-0 md:py-0 overflow-hidden">
+          {/* Video de fondo */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover z-0 opacity-60"
+          >
+            <source src="/videos/chaos-nebula.mp4" type="video/mp4" />
+            Tu navegador no soporta el video.
+          </video>
+          <div className="container relative z-10 px-4 md:px-6 flex flex-col items-center justify-center min-h-screen">
             <motion.div
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -237,16 +236,18 @@ export default function NebulaePage() {
             >
               <div className="space-y-2">
                 <Link
-                  href="/home"
-                  className="inline-flex items-center rounded-lg bg-black px-3 py-1 text-sm text-white font-space border border-white shadow hover:bg-white hover:text-black transition-colors"
+                  href="/"
+                  className="inline-flex items-center rounded-lg bg-black px-3 py-1 text-sm text-white font-space"
                 >
                   <ArrowLeft className="mr-1 h-3 w-3" />
-                  {language === "es" ? "Inicio" : "Home"}
+                  {t("header.home")}
                 </Link>
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none font-space">
-                  {nebulaData.title}
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] font-space px-4 py-2 rounded-lg">
+                  {t("galaxies.nebulae") || "Nebulosas"}
                 </h1>
-                <p className="mx-auto max-w-[700px] text-zinc-400 md:text-xl">{nebulaData.subtitle}</p>
+                <p className="mx-auto max-w-[700px] text-white md:text-xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] font-helvetica px-4 py-2 rounded-lg">
+                  {t("galaxies.nebulaeDesc") || "Observa las hermosas nubes interestelares de gas y polvo donde nacen y mueren las estrellas."}
+                </p>
               </div>
             </motion.div>
           </div>
@@ -338,12 +339,14 @@ export default function NebulaePage() {
                   icon: <Sparkles className="h-10 w-10 text-yellow-400" />,
                   delay: 0.5,
                 },
-              ].map((type, index) => (
+              ].map((type: { title: string; description: string; icon: React.ReactNode; delay: number }, index: number) => (
                 <ScrollReveal key={index} delay={type.delay}>
-                  <GlassmorphismCard>
-                    <div className="mb-4">{type.icon}</div>
-                    <h3 className="mb-2 text-xl font-bold">{type.title}</h3>
-                    <p className="text-zinc-400">{type.description}</p>
+                  <GlassmorphismCard className="h-full flex flex-col justify-start min-h-[220px]">
+                    <div className="flex flex-col flex-1 justify-start">
+                      <div className="mb-4">{type.icon}</div>
+                      <h3 className="mb-2 text-xl font-bold">{type.title}</h3>
+                      <p className="text-zinc-400 flex-1">{type.description}</p>
+                    </div>
                   </GlassmorphismCard>
                 </ScrollReveal>
               ))}
@@ -373,7 +376,7 @@ export default function NebulaePage() {
             <div className="mt-16">
               {/* Nebula Selector */}
               <div className="mb-8 flex flex-wrap justify-center gap-4">
-                {nebulaData.nebulae.map((nebula, index) => (
+                {nebulaData.nebulae.map((nebula: any, index: number) => (
                   <button
                     key={index}
                     onClick={() => setSelectedNebula(index)}

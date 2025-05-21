@@ -20,11 +20,34 @@ const styles = {
   },
 }
 
+// Hook para saber si estamos en cliente
+function useIsClient() {
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+  return isClient;
+}
+
+// Hook para detectar móvil
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+  return isMobile;
+}
+
 export default function SolarSystemPage() {
   const { language, t } = useLanguage()
   const [isVisible, setIsVisible] = useState(false)
   const [factHoverStates, setFactHoverStates] = useState([false, false, false, false, false, false])
   const controlsRef = useRef<any>(null)
+  const isClient = useIsClient();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -131,7 +154,16 @@ export default function SolarSystemPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="mt-16 h-[600px] w-full rounded-lg border border-zinc-800 bg-zinc-950"
             >
-              <SolarSystemView ref={controlsRef} modelUrl="/models/solar_system.glb" />
+              {/* Mostrar el modelo 3D solo en cliente y no móvil */}
+              {isClient && !isMobile && (
+                <SolarSystemView ref={controlsRef} modelUrl="/models/solar_system.glb" />
+              )}
+              {/* Mostrar mensaje alternativo en móvil */}
+              {isClient && isMobile && (
+                <div className="flex items-center justify-center h-full text-zinc-400 text-lg font-helvetica p-8">
+                  {t("solarSystem.no3dMobile")}
+                </div>
+              )}
             </motion.div>
           </div>
         </section>
