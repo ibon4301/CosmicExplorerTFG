@@ -77,8 +77,7 @@ export default function Header() {
     { href: "/exoplanets", label: t("header.exoplanets") },
     { href: "/technology", label: t("header.technology") },
     { href: "/missions", label: t("header.missions") },
-    { href: "/quiz", label: t("header.quiz") },
-    { href: "/kids", label: t("header.kids") },
+    { href: "/quiz", label: t("header.quiz") }
   ]
 
   return (
