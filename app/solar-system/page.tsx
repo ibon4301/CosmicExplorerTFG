@@ -60,15 +60,26 @@ export default function SolarSystemPage() {
 
   return (
     <div
-      className={`flex min-h-screen flex-col bg-black text-white transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
+      className={`flex min-h-screen flex-col bg-black text-white font-space transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
     >
       {/* Header */}
       <Header />
 
       <main className="flex-1 pt-16">
         {/* Hero Section */}
-        <section className="relative w-full bg-gradient-to-b from-black to-zinc-900 py-12 md:py-24">
-          <div className="container px-4 md:px-6">
+        <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-black to-zinc-900 py-0 md:py-0 overflow-hidden">
+          {/* Video de fondo */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover z-0 opacity-60"
+          >
+            <source src="/videos/solar-system-hero.webm" type="video/webm" />
+            Tu navegador no soporta el video.
+          </video>
+          <div className="container relative z-10 px-4 md:px-6 flex flex-col items-center justify-center min-h-screen">
             <motion.div
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -78,15 +89,16 @@ export default function SolarSystemPage() {
               <div className="space-y-2">
                 <Link
                   href="/home"
-                  className="inline-flex items-center rounded-lg bg-black px-3 py-1 text-sm text-white font-space border border-white shadow hover:bg-white hover:text-black transition-colors"
+                  className="inline-flex items-center rounded-lg bg-black px-3 py-1 text-sm text-white font-space"
                 >
                   <ArrowLeft className="mr-1 h-3 w-3" />
                   {t("header.home")}
                 </Link>
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none font-space">
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none font-orbitron drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] px-4 py-2 rounded-lg">
                   {t("solarSystem.title")}
                 </h1>
-                <p className="mx-auto max-w-[700px] text-zinc-400 md:text-xl">{t("solarSystem.subtitle")}</p>
+                
+                <p className="mx-auto max-w-[700px] text-white md:text-xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] px-4 py-2 rounded-lg font-helvetica">{t("solarSystem.subtitle")}</p>
               </div>
             </motion.div>
           </div>
@@ -102,13 +114,13 @@ export default function SolarSystemPage() {
               className="flex flex-col items-center justify-center space-y-4 text-center"
             >
               <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-blue-500/10 px-3 py-1 text-sm text-blue-400">
+                <div className="inline-block rounded-lg bg-blue-500/10 px-3 py-1 text-sm text-blue-400 font-orbitron">
                   {t("solarSystem.interactive")}
                 </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-space">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-orbitron">
                   {t("solarSystem.exploreTitle")}
                 </h2>
-                <p className="mx-auto max-w-[700px] text-zinc-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <p className="mx-auto max-w-[700px] text-zinc-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed font-helvetica">
                   {t("solarSystem.exploreSubtitle")}
                 </p>
               </div>
@@ -134,10 +146,10 @@ export default function SolarSystemPage() {
               className="flex flex-col items-center justify-center space-y-4 text-center"
             >
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-space">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-orbitron">
                   {t("solarSystem.planetDetails")}
                 </h2>
-                <p className="mx-auto max-w-[700px] text-zinc-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <p className="mx-auto max-w-[700px] text-zinc-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed font-helvetica">
                   {t("solarSystem.planetDetailsSubtitle")}
                 </p>
               </div>
@@ -163,13 +175,13 @@ export default function SolarSystemPage() {
               className="flex flex-col items-center justify-center space-y-4 text-center"
             >
               <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-purple-500/10 px-3 py-1 text-sm text-purple-400">
+                <div className="inline-block rounded-lg bg-purple-500/10 px-3 py-1 text-sm text-purple-400 font-orbitron">
                   {t("solarSystem.facts.title")}
                 </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-space">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-orbitron">
                   {t("solarSystem.facts.title")}
                 </h2>
-                <p className="mx-auto max-w-[700px] text-zinc-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <p className="mx-auto max-w-[700px] text-zinc-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed font-helvetica">
                   {t("solarSystem.facts.subtitle")}
                 </p>
               </div>
@@ -248,8 +260,8 @@ export default function SolarSystemPage() {
                         zIndex: factHoverStates[index] ? 0 : 1,
                       }}
                     >
-                      <h3 className={`mb-2 text-xl font-bold text-${fact.color}-400 font-space`}>{fact.title}</h3>
-                      <p className="text-zinc-400">{fact.description}</p>
+                      <h3 className={`mb-2 text-xl font-bold text-${fact.color}-400 font-orbitron`}>{fact.title}</h3>
+                      <p className="text-zinc-400 font-helvetica">{fact.description}</p>
                     </motion.div>
 
                     {/* Back side - Image */}
@@ -268,7 +280,7 @@ export default function SolarSystemPage() {
                           className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
-                          <h3 className="text-white text-lg font-bold font-space">{fact.title}</h3>
+                          <h3 className="text-white text-lg font-bold font-orbitron">{fact.title}</h3>
                         </div>
                       </div>
                     </motion.div>

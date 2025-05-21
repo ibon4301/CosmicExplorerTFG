@@ -12,6 +12,17 @@ import MarsTemperatureChart from "@/components/mars-temperature-chart"
 import MarsAtmosphereChart from "@/components/mars-atmosphere-chart"
 import MarsMissionsTimeline from "@/components/mars-missions-timeline"
 import MarsRoversComparison from "@/components/mars-rovers-comparison"
+import dynamic from "next/dynamic"
+
+// Importamos el componente de modelo 3D de forma dinámica para evitar problemas de SSR
+const MarsModel = dynamic(() => import("@/components/MarsModel"), { 
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex items-center justify-center bg-zinc-900 rounded-lg">
+      <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-red-400"></div>
+    </div>
+  )
+})
 
 export default function MarsPage() {
   const { t, language } = useLanguage()
@@ -60,12 +71,7 @@ export default function MarsPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden">
-            <Image
-              src="/placeholder.svg?height=800&width=800"
-              alt={language === "es" ? "Marte" : "Mars"}
-              fill
-              className="object-cover"
-            />
+            <MarsModel />
           </div>
           <div className="flex flex-col justify-center">
             <h2 className="text-2xl font-bold mb-4 text-red-400 font-space">

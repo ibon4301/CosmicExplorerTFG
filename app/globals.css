@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -28,6 +29,11 @@ body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
   overflow-x: hidden;
+  font-family: var(--font-space), sans-serif;
+}
+
+html, body {
+  font-family: var(--font-space), sans-serif;
 }
 
 /* Custom scrollbar */
@@ -156,4 +162,12 @@ body {
   background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e);
   background-size: 400% 400%;
   animation: gradientAnimation 15s ease infinite;
+}
+
+.font-orbitron {
+  font-family: 'Orbitron', Arial, Helvetica, sans-serif;
+}
+
+.font-helvetica {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }

@@ -32,6 +32,21 @@ export default function PlanetDetails({ language = "en" }) {
     }))
   }
 
+  // Mapeo de color a clase Tailwind para el borde
+  const getBorderColorClass = (color: string) => {
+    switch (color) {
+      case "gray": return "border-gray-400";
+      case "yellow": return "border-yellow-400";
+      case "blue": return "border-blue-400";
+      case "red": return "border-red-400";
+      case "orange": return "border-orange-400";
+      case "amber": return "border-amber-400";
+      case "cyan": return "border-cyan-400";
+      case "indigo": return "border-indigo-400";
+      default: return "border-gray-400";
+    }
+  };
+
   // Datos de los planetas - ordenados por distancia al sol
   const planets = [
     {
@@ -194,7 +209,7 @@ export default function PlanetDetails({ language = "en" }) {
                   
                   {/* Reverso - Modelo 3D GLB */}
                   <div 
-                    className={`absolute w-full h-full backface-hidden bg-zinc-900 rounded-2xl flex items-center justify-center border-2 border-${planet.color}-400`}
+                    className={`absolute w-full h-full backface-hidden bg-zinc-900 rounded-2xl flex items-center justify-center border-2 ${getBorderColorClass(planet.color)}`}
                     style={{ 
                       backfaceVisibility: "hidden", 
                       transform: "rotateY(180deg)",
@@ -208,8 +223,8 @@ export default function PlanetDetails({ language = "en" }) {
                       />
                     ) : (
                       <div className="text-center p-6">
-                        <h4 className={`text-xl font-bold text-${planet.color}-400 mb-2`}>{planet.name}</h4>
-                        <p className="text-zinc-400">
+                        <h4 className={`text-xl font-bold text-${planet.color}-400 mb-2 font-orbitron`}>{planet.name}</h4>
+                        <p className="text-zinc-400 font-helvetica">
                           {language === "es" 
                             ? "Modelo 3D próximamente" 
                             : "3D model coming soon"}
@@ -221,7 +236,7 @@ export default function PlanetDetails({ language = "en" }) {
                 </motion.div>
               </div>
               <div className="space-y-4">
-                <h3 className={`text-2xl font-bold text-${planet.color}-400`}>{planet.name}</h3>
+                <h3 className={`text-2xl font-bold text-${planet.color}-400 font-orbitron`}>{planet.name}</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-sm text-zinc-500">{language === "es" ? "Distancia del Sol" : "Distance from Sun"}</p>
@@ -242,13 +257,13 @@ export default function PlanetDetails({ language = "en" }) {
                     <p className="font-medium">{planet.moons || planet.temperature}</p>
                   </div>
                 </div>
-                <p className="text-zinc-400">{planet.description}</p>
+                <p className="text-zinc-400 font-helvetica">{planet.description}</p>
               </div>
             </>
           ) : (
             <>
               <div className="order-2 md:order-1 space-y-4">
-                <h3 className={`text-2xl font-bold text-${planet.color}-400`}>{planet.name}</h3>
+                <h3 className={`text-2xl font-bold text-${planet.color}-400 font-orbitron`}>{planet.name}</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-sm text-zinc-500">{language === "es" ? "Distancia del Sol" : "Distance from Sun"}</p>
@@ -269,7 +284,7 @@ export default function PlanetDetails({ language = "en" }) {
                     <p className="font-medium">{planet.moons || planet.temperature}</p>
                   </div>
                 </div>
-                <p className="text-zinc-400">{planet.description}</p>
+                <p className="text-zinc-400 font-helvetica">{planet.description}</p>
               </div>
               <div 
                 className="relative order-1 md:order-2 h-[300px] rounded-2xl overflow-hidden perspective-1000"
@@ -302,7 +317,7 @@ export default function PlanetDetails({ language = "en" }) {
                   
                   {/* Reverso - Modelo 3D GLB */}
                   <div 
-                    className={`absolute w-full h-full backface-hidden bg-zinc-900 rounded-2xl flex items-center justify-center border-2 border-${planet.color}-400`}
+                    className={`absolute w-full h-full backface-hidden bg-zinc-900 rounded-2xl flex items-center justify-center border-2 ${getBorderColorClass(planet.color)}`}
                     style={{ 
                       backfaceVisibility: "hidden", 
                       transform: "rotateY(180deg)",
@@ -316,8 +331,8 @@ export default function PlanetDetails({ language = "en" }) {
                       />
                     ) : (
                       <div className="text-center p-6">
-                        <h4 className={`text-xl font-bold text-${planet.color}-400 mb-2`}>{planet.name}</h4>
-                        <p className="text-zinc-400">
+                        <h4 className={`text-xl font-bold text-${planet.color}-400 mb-2 font-orbitron`}>{planet.name}</h4>
+                        <p className="text-zinc-400 font-helvetica">
                           {language === "es" 
                             ? "Modelo 3D próximamente" 
                             : "3D model coming soon"}
