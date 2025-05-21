@@ -4,7 +4,6 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft } from "lucide-react"
 import Header from "@/components/header"
-import CustomCursor from "@/components/custom-cursor"
 import { motion } from "framer-motion"
 import Footer from "@/components/footer"
 import { useLanguage } from "@/contexts/language-context"
@@ -29,9 +28,6 @@ export default function MissionsPage() {
     <div
       className={`flex min-h-screen flex-col bg-black text-white transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
     >
-      {/* Custom Cursor */}
-      <CustomCursor />
-
       {/* Header */}
       <Header />
 
@@ -48,7 +44,7 @@ export default function MissionsPage() {
               <div className="space-y-2">
                 <Link
                   href="/"
-                  className="inline-flex items-center rounded-lg bg-blue-500/10 px-3 py-1 text-sm text-blue-400"
+                  className="inline-flex items-center rounded-lg bg-black px-3 py-1 text-sm text-white font-space border border-white shadow hover:bg-white hover:text-black transition-colors"
                 >
                   <ArrowLeft className="mr-1 h-3 w-3" />
                   {t("header.home")}

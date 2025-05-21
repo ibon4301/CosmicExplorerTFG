@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { ArrowLeft, Check, X } from "lucide-react"
 import Header from "@/components/header"
-import CustomCursor from "@/components/custom-cursor"
 import { useLanguage } from "@/contexts/language-context"
 import { motion } from "framer-motion"
 // Reemplazar el footer existente con el componente Footer
@@ -54,7 +53,7 @@ export default function BlackHolesQuizPage() {
           ],
           correct: "A region of space where gravity is so strong that nothing can escape",
           explanation:
-            "A black hole is a region of spacetime where gravity is so strong that nothing—no particles or even electromagnetic radiation such as light—can escape from it.",
+            "A black hole is a region of spacetime where gravity is so strong that nothing, no particles or even electromagnetic radiation such as light, can escape from it.",
         },
         {
           question: "What is at the center of a black hole?",
@@ -112,7 +111,7 @@ export default function BlackHolesQuizPage() {
           ],
           correct: "Una región del espacio donde la gravedad es tan fuerte que nada puede escapar",
           explanation:
-            "Un agujero negro es una región del espacio-tiempo donde la gravedad es tan fuerte que nada—ni partículas ni radiación electromagnética como la luz—puede escapar de él.",
+            "Un agujero negro es una región del espacio-tiempo donde la gravedad es tan fuerte que nada, ni partículas ni radiación electromagnética como la luz, puede escapar de él.",
         },
         {
           question: "¿Qué hay en el centro de un agujero negro?",
@@ -205,9 +204,6 @@ export default function BlackHolesQuizPage() {
     <div
       className={`flex min-h-screen flex-col bg-black text-white transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
     >
-      {/* Custom Cursor */}
-      <CustomCursor />
-
       {/* Header */}
       <Header />
 

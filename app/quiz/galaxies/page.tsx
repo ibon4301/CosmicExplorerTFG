@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { ArrowLeft, Check, X } from "lucide-react"
 import Header from "@/components/header"
-import CustomCursor from "@/components/custom-cursor"
 import { useLanguage } from "@/contexts/language-context"
 import { motion } from "framer-motion"
 
@@ -186,9 +185,6 @@ export default function GalaxiesQuizPage() {
     <div
       className={`flex min-h-screen flex-col bg-black text-white transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
     >
-      {/* Custom Cursor */}
-      <CustomCursor />
-
       {/* Header */}
       <Header />
 

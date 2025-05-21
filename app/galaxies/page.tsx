@@ -5,7 +5,6 @@ import Image from "next/image"
 import { ArrowLeft } from "lucide-react"
 import GalaxyModel from "@/components/galaxy-model"
 import Header from "@/components/header"
-import CustomCursor from "@/components/custom-cursor"
 import { motion } from "framer-motion"
 
 // Reemplazar el footer existente con el componente Footer
@@ -42,9 +41,6 @@ export default function GalaxiesPage() {
     <div
       className={`flex min-h-screen flex-col bg-black text-white transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
     >
-      {/* Custom Cursor */}
-      <CustomCursor />
-
       {/* Header */}
       <Header />
 
@@ -61,7 +57,7 @@ export default function GalaxiesPage() {
               <div className="space-y-2">
                 <Link
                   href="/"
-                  className="inline-flex items-center rounded-lg bg-blue-500/10 px-3 py-1 text-sm text-blue-400"
+                  className="inline-flex items-center rounded-lg bg-black px-3 py-1 text-sm text-white font-space border border-white shadow hover:bg-white hover:text-black transition-colors"
                 >
                   <ArrowLeft className="mr-1 h-3 w-3" />
                   {t("header.home")}

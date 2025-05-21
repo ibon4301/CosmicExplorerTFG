@@ -8,7 +8,6 @@ import FeatureCard from "@/components/feature-card"
 import PlanetExplorer from "@/components/planet-explorer"
 import MainHeader from "@/components/main-header"
 import { useLanguage } from "@/contexts/language-context"
-import CustomCursor from "@/components/custom-cursor"
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import SpaceTimeline from "@/components/space-timeline"
@@ -84,9 +83,6 @@ export default function HomePage() {
     <div
       className={`flex min-h-screen flex-col bg-black text-white transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
     >
-      {/* Custom Cursor */}
-      <CustomCursor />
-
       {/* Header */}
       <MainHeader />
 

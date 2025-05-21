@@ -6,7 +6,6 @@ import { ArrowLeft } from "lucide-react"
 import PlanetDetails from "@/components/planet-details"
 import Header from "@/components/header"
 import { useLanguage } from "@/contexts/language-context"
-import CustomCursor from "@/components/custom-cursor"
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import SolarSystemView from "@/components/SolarSystemView"
@@ -63,9 +62,6 @@ export default function SolarSystemPage() {
     <div
       className={`flex min-h-screen flex-col bg-black text-white transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
     >
-      {/* Custom Cursor */}
-      <CustomCursor />
-
       {/* Header */}
       <Header />
 
@@ -82,7 +78,7 @@ export default function SolarSystemPage() {
               <div className="space-y-2">
                 <Link
                   href="/home"
-                  className="inline-flex items-center rounded-lg bg-blue-500/10 px-3 py-1 text-sm text-blue-400"
+                  className="inline-flex items-center rounded-lg bg-black px-3 py-1 text-sm text-white font-space border border-white shadow hover:bg-white hover:text-black transition-colors"
                 >
                   <ArrowLeft className="mr-1 h-3 w-3" />
                   {t("header.home")}
