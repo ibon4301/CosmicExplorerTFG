@@ -359,7 +359,8 @@
     "loadingWait": "Esto puede tardar unos segundos."
   },
   "buttons": {
-    "resetViewText": "Resetear Vista"
+    "resetViewText": "Resetear Vista",
+    "back": "Volver"
   },
   "ebooks": {
     "title": "E-books de la NASA",
@@ -371,5 +372,42 @@
       "technology": "Tecnología",
       "astronomy": "Astronomía"
     }
+  },
+  "account": {
+    "login": "Iniciar sesión",
+    "register": "Registrarse",
+    "profile": "Perfil",
+    "settings": "Ajustes",
+    "myReviews": "Mis Reseñas",
+    "logout": "Cerrar sesión"
+  },
+  "plans": {
+    "basic": "Básico",
+    "pro": "Pro",
+    "explorer": "Explorer"
+  },
+  "subscription": {
+    "active": "Tienes una suscripción activa",
+    "plan": "Plan actual",
+    "since": "Fecha de alta",
+    "until": "Válida hasta",
+    "upgradeMsg": "¿Quieres mejorar tu suscripción? Elige un plan superior y paga solo la diferencia.",
+    "upgradeBtn": "Actualizar a",
+    "currentMax": "Ya tienes el plan más alto disponible.",
+    "success": "¡Pago realizado!",
+    "thanks": "Gracias por suscribirte a la cuota",
+    "error": "Error al guardar la suscripción. Inténtalo de nuevo o contacta con soporte.",
+    "alreadyActive": "Ya tienes una suscripción activa. Si necesitas cambiarla, contacta con soporte."
+  },
+  "checkout": {
+    "title": "Suscripción Cosmic Explorer",
+    "continue": "Continuar con",
+    "pay": "Pagar",
+    "backPlans": "Volver a cuotas",
+    "acceptedCards": "Solo se aceptan tarjetas Visa y Mastercard",
+    "cardPlaceholder": "Número de tarjeta",
+    "namePlaceholder": "Nombre en la tarjeta",
+    "expiryPlaceholder": "MM/AA",
+    "cvcPlaceholder": "CVC"
   }
 }

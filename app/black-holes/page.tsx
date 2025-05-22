@@ -37,7 +37,7 @@ export default function BlackHolesPage() {
 
   return (
     <div
-      className={`flex min-h-screen flex-col bg-black text-white font-space transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
+      className={`flex min-h-screen flex-col bg-black text-white transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
     >
       {/* Custom Cursor */}
       {/* <CustomCursor /> */}
@@ -74,7 +74,7 @@ export default function BlackHolesPage() {
                   <ArrowLeft className="mr-1 h-3 w-3" />
                   {t("header.home")}
                 </Link>
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] font-space px-4 py-2 rounded-lg">
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] font-orbitron px-4 py-2 rounded-lg">
                   {t("blackHoles.title")}
                 </h1>
                 <p className="mx-auto max-w-[700px] text-white md:text-xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] font-helvetica px-4 py-2 rounded-lg">
@@ -90,13 +90,13 @@ export default function BlackHolesPage() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-pink-500/10 px-3 py-1 text-sm text-pink-400">
+                <div className="inline-block rounded-lg bg-pink-500/10 px-3 py-1 text-sm text-pink-400 font-orbitron">
                   {t("blackHoles.interactive")}
                 </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-orbitron">
                   {t("blackHoles.exploreTitle")}
                 </h2>
-                <p className="mx-auto max-w-[700px] text-zinc-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <p className="mx-auto max-w-[700px] text-zinc-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed font-helvetica">
                   {t("blackHoles.exploreSubtitle")}
                 </p>
               </div>
@@ -113,18 +113,18 @@ export default function BlackHolesPage() {
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
-                  <div className="inline-block rounded-lg bg-pink-500/10 px-3 py-1 text-sm text-pink-400">
+                  <div className="inline-block rounded-lg bg-pink-500/10 px-3 py-1 text-sm text-pink-400 font-orbitron">
                     {t("blackHoles.fundamentals")}
                   </div>
-                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-orbitron">
                     {t("blackHoles.whatAreTitle")}
                   </h2>
-                  <p className="max-w-[600px] text-zinc-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  <p className="max-w-[600px] text-zinc-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed font-helvetica">
                     {t("blackHoles.whatAreDesc1")}
                   </p>
                 </div>
-                <p className="text-zinc-400">{t("blackHoles.whatAreDesc2")}</p>
-                <p className="text-zinc-400">{t("blackHoles.whatAreDesc3")}</p>
+                <p className="text-zinc-400 font-helvetica">{t("blackHoles.whatAreDesc2")}</p>
+                <p className="text-zinc-400 font-helvetica">{t("blackHoles.whatAreDesc3")}</p>
               </div>
               <div className="flex items-center justify-center">
                 <div className="relative h-[400px] w-full overflow-hidden rounded-2xl">

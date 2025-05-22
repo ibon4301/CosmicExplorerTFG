@@ -2,16 +2,23 @@
 
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { Menu, ChevronDown, ChevronRight } from "lucide-react"
+import { Menu, ChevronDown, ChevronRight, User, LogOut, Settings, Star, UserCircle, UserPlus } from "lucide-react"
 import LanguageSelector from "@/components/language-selector"
 import { useLanguage } from "@/contexts/language-context"
 import { motion } from "framer-motion"
+import { useAuth } from "@/contexts/AuthContext"
+import AuthModal from "@/components/AuthModal"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [expandedSection, setExpandedSection] = useState<string | null>(null)
   const { t } = useLanguage()
   const headerRef = useRef<HTMLElement>(null)
+  const { user, logout } = useAuth()
+  const [showAuthModal, setShowAuthModal] = useState(false)
+  const [userMenuOpen, setUserMenuOpen] = useState(false)
+  const userMenuRef = useRef<HTMLDivElement>(null)
+  const [authModalMode, setAuthModalMode] = useState<'login' | 'register'>("login")
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -30,13 +37,16 @@ export default function Header() {
       if (headerRef.current && !headerRef.current.contains(event.target as Node) && isMenuOpen) {
         setIsMenuOpen(false)
       }
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setUserMenuOpen(false)
+      }
     }
 
     document.addEventListener("mousedown", handleClickOutside)
     return () => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
-  }, [isMenuOpen])
+  }, [isMenuOpen, userMenuOpen])
 
   const logoVariants = {
     hover: {
@@ -117,6 +127,57 @@ export default function Header() {
         </div>
         <div className="flex items-center gap-4">
           <LanguageSelector />
+          <div className="relative" ref={userMenuRef}>
+            <button
+              className="flex items-center justify-center rounded-full p-2 hover:bg-zinc-800 transition-colors"
+              onClick={() => setUserMenuOpen((v) => !v)}
+              aria-label="Menú de usuario"
+            >
+              <UserCircle className="h-7 w-7 text-blue-400" />
+            </button>
+            {userMenuOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-zinc-900 border border-zinc-800 rounded-lg shadow-lg z-50 animate-fade-in">
+                {!user ? (
+                  <>
+                    <button
+                      className="w-full flex items-center gap-2 px-4 py-2 text-sm hover:bg-zinc-800 text-white"
+                      onClick={() => { setAuthModalMode("login"); setShowAuthModal(true); setUserMenuOpen(false); }}
+                    >
+                      <User className="w-4 h-4" /> {t("account.login")}
+                    </button>
+                    <button
+                      className="w-full flex items-center gap-2 px-4 py-2 text-sm hover:bg-zinc-800 text-white"
+                      onClick={() => { setAuthModalMode("register"); setShowAuthModal(true); setUserMenuOpen(false); }}
+                    >
+                      <UserPlus className="w-4 h-4" /> {t("account.register")}
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <div className="px-4 py-2 text-xs text-zinc-400 border-b border-zinc-800">
+                      {user.displayName || user.email}
+                    </div>
+                    <button className="w-full flex items-center gap-2 px-4 py-2 text-sm hover:bg-zinc-800 text-white">
+                      <User className="w-4 h-4" /> {t("account.profile")}
+                    </button>
+                    <button className="w-full flex items-center gap-2 px-4 py-2 text-sm hover:bg-zinc-800 text-white">
+                      <Settings className="w-4 h-4" /> {t("account.settings")}
+                    </button>
+                    <button className="w-full flex items-center gap-2 px-4 py-2 text-sm hover:bg-zinc-800 text-white">
+                      <Star className="w-4 h-4" /> {t("account.myReviews")}
+                    </button>
+                    <button
+                      className="w-full flex items-center gap-2 px-4 py-2 text-sm hover:bg-zinc-800 text-red-400"
+                      onClick={() => { logout(); setUserMenuOpen(false); }}
+                    >
+                      <LogOut className="w-4 h-4" /> {t("account.logout")}
+                    </button>
+                  </>
+                )}
+              </div>
+            )}
+            <AuthModal open={showAuthModal} onClose={() => setShowAuthModal(false)} initialMode={authModalMode} />
+          </div>
           <button className="flex items-center justify-center rounded-md p-2" onClick={toggleMenu}>
             <Menu className="h-6 w-6" />
             <span className="sr-only">Toggle menu</span>

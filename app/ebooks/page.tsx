@@ -3,12 +3,14 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowLeft, Download } from "lucide-react"
+import { ArrowLeft, Download, MessageCircle } from "lucide-react"
 import Header from "@/components/header"
 import { motion } from "framer-motion"
 import Footer from "@/components/footer"
 import { useLanguage } from "@/contexts/language-context"
 import ScrollReveal from "@/components/scroll-reveal"
+import EbookComments from "@/components/EbookComments"
+import EbookCommentsModalOnly from "@/components/EbookCommentsModalOnly"
 
 interface Ebook {
   title: string
@@ -23,6 +25,7 @@ export default function EbooksPage() {
   const [isVisible, setIsVisible] = useState(false)
   const [ebooks, setEbooks] = useState<Ebook[]>([])
   const [groupedEbooks, setGroupedEbooks] = useState<{ [key: string]: Ebook[] }>({})
+  const [commentsModal, setCommentsModal] = useState<{ open: boolean, ebook: Ebook | null }>({ open: false, ebook: null })
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -66,7 +69,7 @@ export default function EbooksPage() {
 
       <main className="flex-1 pt-16">
         {/* Hero Section */}
-        <section className="relative w-full min-h-[60vh] flex items-center justify-center bg-gradient-to-b from-black to-zinc-900">
+        <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-black to-zinc-900 py-0 md:py-0 overflow-hidden">
           <div className="absolute inset-0 z-0">
             <Image
               src="/images/ebooks/hero-bg.jpg"
@@ -106,11 +109,13 @@ export default function EbooksPage() {
           <div className="container px-4 md:px-6">
             {Object.entries(groupedEbooks).map(([category, books]) => (
               <div key={category} className="mb-16">
-                <h2 className="text-2xl font-bold mb-8 text-blue-400 font-space">{category}</h2>
-                <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                <h2 className="text-3xl font-extrabold mb-10 text-blue-400 font-space border-b-4 border-blue-700 pb-2 tracking-wide uppercase drop-shadow-lg">
+                  {category}
+                </h2>
+                <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
                   {books.map((book, index) => (
                     <ScrollReveal key={index} direction={index % 2 === 0 ? "left" : "right"}>
-                      <div className="group relative overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950 transition-colors hover:bg-zinc-900 h-full flex flex-col">
+                      <div className="group relative overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950 transition-colors hover:bg-zinc-900 h-full flex flex-col max-w-xl mx-auto">
                         <div className="relative h-48 w-full">
                           <Image
                             src={book.image || "/images/ebooks/default-cover.jpg"}
@@ -131,6 +136,13 @@ export default function EbooksPage() {
                             <Download className="h-4 w-4" />
                             <span>{t("ebooks.download")}</span>
                           </a>
+                          {/* Comentarios y valoraciones sin icono de bocadillo arriba */}
+                          <EbookComments 
+                            ebookTitle={book.title} 
+                            ebookImage={book.image} 
+                            ebookDescription={book.description} 
+                            onShowComments={() => setCommentsModal({ open: true, ebook: book })}
+                          />
                         </div>
                       </div>
                     </ScrollReveal>
@@ -143,6 +155,16 @@ export default function EbooksPage() {
       </main>
 
       <Footer />
+
+      {/* Modal de solo comentarios para la card */}
+      {commentsModal.open && commentsModal.ebook && (
+        <EbookCommentsModalOnly
+          ebookTitle={commentsModal.ebook.title}
+          ebookImage={commentsModal.ebook.image}
+          ebookDescription={commentsModal.ebook.description}
+          onClose={() => setCommentsModal({ open: false, ebook: null })}
+        />
+      )}
     </div>
   )
 } 

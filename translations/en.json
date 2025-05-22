@@ -359,7 +359,8 @@
     "loadingWait": "This might take a few seconds."
   },
   "buttons": {
-    "resetViewText": "Reset View"
+    "resetViewText": "Reset View",
+    "back": "Back"
   },
   "ebooks": {
     "title": "NASA E-books",
@@ -371,5 +372,26 @@
       "technology": "Technology",
       "astronomy": "Astronomy"
     }
+  },
+  "account": {
+    "login": "Sign in",
+    "register": "Register",
+    "profile": "Profile",
+    "settings": "Settings",
+    "myReviews": "My Reviews",
+    "logout": "Log out"
+  },
+  "plans": {
+    "basic": "Basic",
+    "pro": "Pro",
+    "explorer": "Explorer"
+  },
+  "subscription": {
+    "active": "You have an active subscription",
+    "plan": "Current plan",
+    "since": "Start date",
+    "until": "Valid until",
+    "upgradeMsg": "Want to upgrade your subscription? Choose a higher plan and pay only the difference.",
+    "upgradeBtn": "Upgrade to"
   }
 }

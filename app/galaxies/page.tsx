@@ -93,9 +93,7 @@ export default function GalaxiesPage() {
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-orbitron">
                   {t("galaxies.typesTitle")}
                 </h2>
-                <p className="mx-auto max-w-[700px] text-zinc-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed font-helvetica">
-                  {t("galaxies.typesSubtitle")}
-                </p>
+                <p className="mx-auto max-w-[700px] text-zinc-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed font-helvetica">{t("galaxies.typesSubtitle")}</p>
               </div>
             </div>
             <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -157,9 +155,7 @@ export default function GalaxiesPage() {
                   <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-orbitron">
                     {t("galaxies.milkyWayTitle")}
                   </h2>
-                  <p className="max-w-[600px] text-zinc-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed font-helvetica">
-                    {t("galaxies.milkyWayDesc")}
-                  </p>
+                  <p className="max-w-[600px] text-zinc-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed font-helvetica">{t("galaxies.milkyWayDesc")}</p>
                 </div>
                 <ul className="space-y-2 text-zinc-400 font-helvetica">
                   <li className="flex items-center">

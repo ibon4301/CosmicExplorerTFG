@@ -171,3 +171,31 @@ html, body {
 .font-helvetica {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+
+/* Animación sketch-in para el modal tipo sketch */
+@keyframes sketch-in {
+  0% { transform: scale(0.95) rotate(-2deg); opacity: 0; }
+  60% { transform: scale(1.03) rotate(1deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.animate-sketch-in {
+  animation: sketch-in 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+/* Animación smooth para aparición de modales */
+@keyframes modal-appear {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.modal-appear {
+  animation: modal-appear 0.35s cubic-bezier(.32,1.56,.64,1) both;
+}
+
+/* Animación para el menú desplegable */
+@keyframes fade-in {
+  0% { opacity: 0; transform: translateY(-10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out forwards;
+}

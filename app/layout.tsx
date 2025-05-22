@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { LanguageProvider } from "@/contexts/language-context"
 import localFont from "next/font/local"
 import ScrollToTop from "@/components/scroll-to-top"
+import { AuthProvider } from "@/contexts/AuthContext"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -40,10 +41,12 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} ${spaceFont.variable} bg-black text-white`}>
         <ThemeProvider attribute="class" defaultTheme="dark">
-          <LanguageProvider>
-            <ScrollToTop />
-            {children}
-          </LanguageProvider>
+          <AuthProvider>
+            <LanguageProvider>
+              <ScrollToTop />
+              {children}
+            </LanguageProvider>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
