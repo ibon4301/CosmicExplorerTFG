@@ -10,7 +10,8 @@
     "technology": "Tecnología Espacial",
     "missions": "Misiones Espaciales",
     "quiz": "Cuestionario Espacial",
-    "kids": "Niños"
+    "kids": "Niños",
+    "ebooks": "E-books"
   },
   "home": {
     "hero": {
@@ -359,5 +360,16 @@
   },
   "buttons": {
     "resetViewText": "Resetear Vista"
+  },
+  "ebooks": {
+    "title": "E-books de la NASA",
+    "subtitle": "Descarga libros oficiales de la NASA y explora el cosmos desde tu dispositivo",
+    "download": "Descargar PDF",
+    "categories": {
+      "earth": "Ciencias de la Tierra",
+      "planetary": "Ciencia Planetaria",
+      "technology": "Tecnología",
+      "astronomy": "Astronomía"
+    }
   }
 }

@@ -206,6 +206,54 @@ export default function NebulaePage() {
 
   const nebulaData = translations[language as "en" | "es"] || translations.en
 
+  const famousNebulae = [
+    {
+      name: "Nebulosa de la Hélice (NGC 7293)",
+      type: "Nebulosa planetaria",
+      distance: "650 años luz",
+      constellation: "Acuario",
+      description: `Conocida como el "Ojo de Dios" por su apariencia, la Nebulosa de la Hélice es una de las nebulosas planetarias más cercanas a la Tierra. Se formó cuando una estrella similar al Sol expulsó sus capas exteriores al final de su vida.\nCuriosidad: Su estructura compleja incluye filamentos de gas y polvo que se extienden miles de millones de kilómetros.`,
+      size: "2,5 años luz de diámetro",
+      image: "/images/famous-nebulae/helix-nebula.jpg"
+    },
+    {
+      name: "Nebulosa de la Mariposa (NGC 6302)",
+      type: "Nebulosa planetaria bipolar",
+      distance: "3.400 años luz",
+      constellation: "Escorpio",
+      description: `Esta nebulosa destaca por su forma de alas extendidas y su intenso colorido. En su centro hay una de las estrellas más calientes conocidas, con una temperatura superficial de unos 250.000 °C.\nDato interesante: La estrella central está oculta por un denso toro de polvo, lo que hace que la nebulosa brille intensamente en el infrarrojo.`,
+      size: "3 años luz de diámetro",
+      image: "/images/famous-nebulae/butterfly-nebula.jpg"
+    },
+    {
+      name: "Nebulosa de la Tarántula (NGC 2070)",
+      type: "Nebulosa de emisión",
+      distance: "160.000 años luz",
+      constellation: "Dorado",
+      description: `Es la región de formación estelar más activa del Grupo Local de galaxias y se encuentra en la Gran Nube de Magallanes. Contiene algunas de las estrellas más masivas y luminosas conocidas.\nCuriosidad: Si estuviera tan cerca como la Nebulosa de Orión, ¡proyectaría sombras en la Tierra!`,
+      size: "650 años luz de diámetro",
+      image: "/images/famous-nebulae/tarantula-nebula.jpg"
+    },
+    {
+      name: "Nebulosa de la Laguna (M8)",
+      type: "Nebulosa de emisión",
+      distance: "4.100 años luz",
+      constellation: "Sagitario",
+      description: `Famosa por su brillante región H II y su gran tamaño, la Nebulosa de la Laguna es visible a simple vista en cielos oscuros. Es un vivero estelar donde nacen nuevas estrellas.\nDato curioso: En su interior se encuentra la estructura conocida como "La Rueda de la Fortuna", una nube de gas en rotación.`,
+      size: "110 años luz de diámetro",
+      image: "/images/famous-nebulae/lagoon-nebula.jpg"
+    },
+    {
+      name: "Nebulosa de la Burbuja (NGC 7635)",
+      type: "Nebulosa de emisión",
+      distance: "7.100 años luz",
+      constellation: "Casiopea",
+      description: `La forma esférica de esta nebulosa es causada por el viento estelar de una estrella masiva que empuja el gas circundante, creando una burbuja casi perfecta.\nCuriosidad: La estrella responsable de la burbuja es unas 45 veces más masiva que el Sol y su viento estelar viaja a más de 2.000 km/s.`,
+      size: "7 años luz de diámetro",
+      image: "/images/famous-nebulae/bubble-nebula.jpg"
+    }
+  ];
+
   return (
     <div
       className={`flex min-h-screen flex-col bg-black text-white transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
@@ -275,11 +323,14 @@ export default function NebulaePage() {
               <ScrollReveal direction="right">
                 <div className="flex items-center justify-center">
                   <div className="relative h-[400px] w-full overflow-hidden rounded-lg">
-                    <Image
-                      src="/placeholder.svg?height=800&width=1200"
-                      alt="Nebulae Overview"
-                      fill
-                      className="object-cover"
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src="https://www.youtube.com/embed/5GJv8-cvfdo"
+                      title="Nebulae Video"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="rounded-lg"
                     />
                   </div>
                 </div>
@@ -307,47 +358,60 @@ export default function NebulaePage() {
               </div>
             </ScrollReveal>
 
-            <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+            <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-5 items-stretch">
               {[
                 {
                   title: nebulaData.emission,
                   description: nebulaData.emissionDesc,
                   icon: <Sparkles className="h-10 w-10 text-red-400" />,
                   delay: 0.1,
+                  image: "/images/features/emission-nebula.jpg"
                 },
                 {
                   title: nebulaData.reflection,
                   description: nebulaData.reflectionDesc,
                   icon: <Star className="h-10 w-10 text-blue-400" />,
                   delay: 0.2,
+                  image: "/images/features/reflection-nebula.jpg"
                 },
                 {
                   title: nebulaData.dark,
                   description: nebulaData.darkDesc,
                   icon: <Cloud className="h-10 w-10 text-zinc-400" />,
                   delay: 0.3,
+                  image: "/images/features/dark-nebula.jpg"
                 },
                 {
                   title: nebulaData.planetary,
                   description: nebulaData.planetaryDesc,
                   icon: <Cloud className="h-10 w-10 text-green-400" />,
                   delay: 0.4,
+                  image: "/images/features/planetary-nebula.jpg"
                 },
                 {
                   title: nebulaData.supernova,
                   description: nebulaData.supernovaDesc,
                   icon: <Sparkles className="h-10 w-10 text-yellow-400" />,
                   delay: 0.5,
+                  image: "/images/features/supernova-nebula.jpg"
                 },
-              ].map((type: { title: string; description: string; icon: React.ReactNode; delay: number }, index: number) => (
+              ].map((type: { title: string; description: string; icon: React.ReactNode; delay: number; image: string }, index: number) => (
                 <ScrollReveal key={index} delay={type.delay}>
-                  <GlassmorphismCard className="h-full flex flex-col justify-start min-h-[220px]">
-                    <div className="flex flex-col flex-1 justify-start">
+                  <div className="relative group h-full">
+                    <div className="absolute inset-0 z-20 opacity-0 group-hover:opacity-100 group-hover:-translate-y-4 group-hover:scale-105 group-hover:shadow-2xl group-hover:z-30 transition-all duration-500 pointer-events-none">
+                      <Image
+                        src={type.image}
+                        alt={type.title}
+                        fill
+                        className="object-cover rounded-2xl shadow-2xl"
+                      />
+                    </div>
+                    <div className="relative z-10 rounded-lg border border-zinc-800 bg-zinc-900 p-6 group-hover:opacity-40 transition-all duration-500 h-full flex flex-col">
                       <div className="mb-4">{type.icon}</div>
                       <h3 className="mb-2 text-xl font-bold">{type.title}</h3>
                       <p className="text-zinc-400 flex-1">{type.description}</p>
                     </div>
-                  </GlassmorphismCard>
+                  </div>
                 </ScrollReveal>
               ))}
             </div>
@@ -376,7 +440,7 @@ export default function NebulaePage() {
             <div className="mt-16">
               {/* Nebula Selector */}
               <div className="mb-8 flex flex-wrap justify-center gap-4">
-                {nebulaData.nebulae.map((nebula: any, index: number) => (
+                {famousNebulae.map((nebula: any, index: number) => (
                   <button
                     key={index}
                     onClick={() => setSelectedNebula(index)}
@@ -403,69 +467,39 @@ export default function NebulaePage() {
                 <div className="grid gap-8 md:grid-cols-2">
                   <div className="relative h-[300px] overflow-hidden rounded-lg">
                     <Image
-                      src={nebulaData.nebulae[selectedNebula].image || "/placeholder.svg"}
-                      alt={nebulaData.nebulae[selectedNebula].name}
+                      src={famousNebulae[selectedNebula].image}
+                      alt={famousNebulae[selectedNebula].name}
                       fill
                       className="object-cover"
                     />
                   </div>
                   <div className="flex flex-col justify-center space-y-4">
-                    <h3 className="text-2xl font-bold text-pink-400">{nebulaData.nebulae[selectedNebula].name}</h3>
+                    <h3 className="text-2xl font-bold text-pink-400">{famousNebulae[selectedNebula].name}</h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <p className="text-sm text-zinc-500">{language === "es" ? "Tipo" : "Type"}</p>
-                        <p className="font-medium">{nebulaData.nebulae[selectedNebula].type}</p>
+                        <p className="font-medium">{famousNebulae[selectedNebula].type}</p>
                       </div>
                       <div>
                         <p className="text-sm text-zinc-500">{language === "es" ? "Distancia" : "Distance"}</p>
-                        <p className="font-medium">{nebulaData.nebulae[selectedNebula].distance}</p>
+                        <p className="font-medium">{famousNebulae[selectedNebula].distance}</p>
                       </div>
                       <div>
                         <p className="text-sm text-zinc-500">{language === "es" ? "Constelación" : "Constellation"}</p>
-                        <p className="font-medium">{nebulaData.nebulae[selectedNebula].constellation}</p>
+                        <p className="font-medium">{famousNebulae[selectedNebula].constellation}</p>
                       </div>
                       <div>
                         <p className="text-sm text-zinc-500">{language === "es" ? "Tamaño" : "Size"}</p>
-                        <p className="font-medium">{nebulaData.nebulae[selectedNebula].size}</p>
+                        <p className="font-medium">{famousNebulae[selectedNebula].size}</p>
                       </div>
                     </div>
-                    <p className="text-zinc-400">{nebulaData.nebulae[selectedNebula].description}</p>
+                    <p className="text-zinc-400">{famousNebulae[selectedNebula].description}</p>
                   </div>
                 </div>
               </motion.div>
             </div>
           </div>
         </ParallaxSection>
-
-        {/* 3D Models Section (Placeholder) */}
-        <section className="w-full bg-zinc-950 py-12 md:py-24">
-          <div className="container px-4 md:px-6">
-            <ScrollReveal>
-              <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                <div className="space-y-2">
-                  <div className="inline-block rounded-lg bg-blue-500/10 px-3 py-1 text-sm text-blue-400">
-                    {nebulaData.models}
-                  </div>
-                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-space">
-                    {nebulaData.modelsTitle}
-                  </h2>
-                  <p className="mx-auto max-w-[700px] text-zinc-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                    {nebulaData.modelsDesc}
-                  </p>
-                </div>
-              </div>
-            </ScrollReveal>
-
-            <div className="mt-16">
-              <div className="flex h-[400px] items-center justify-center rounded-lg border border-dashed border-zinc-700 bg-zinc-900/50 p-8">
-                <div className="text-center">
-                  <Cloud className="mx-auto mb-4 h-16 w-16 text-zinc-600" />
-                  <p className="text-xl font-medium text-zinc-500">{nebulaData.modelPlaceholder}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
 
       {/* Footer */}

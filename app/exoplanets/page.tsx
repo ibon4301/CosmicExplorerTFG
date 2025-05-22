@@ -74,9 +74,9 @@ export default function ExoplanetsPage() {
           distance: "39.6 light-years",
           discovery: "2017",
           description:
-            "A potentially habitable Earth-sized planet in the TRAPPIST-1 system, which contains seven rocky planets in total.",
+            "A fascinating world orbiting an ultracool dwarf star. The most remarkable feature is that it's part of a system of seven Earth-sized planets that are so close to each other that from TRAPPIST-1e's surface, the other planets would appear larger than our Moon in the sky. Scientists believe it could have liquid water oceans and a dense atmosphere, making it one of the best candidates in the search for life.",
           habitability: "High potential",
-          image: "/placeholder.svg?height=400&width=600",
+          image: "/images/exoplanets/trappist-1e.jpg",
         },
         {
           name: "Proxima Centauri b",
@@ -84,18 +84,19 @@ export default function ExoplanetsPage() {
           distance: "4.2 light-years",
           discovery: "2016",
           description:
-            "The closest known exoplanet to our solar system, orbiting our nearest stellar neighbor, Proxima Centauri.",
+            "The closest exoplanet to our solar system, orbiting our nearest stellar neighbor. Despite being very close to its star, Proxima Centauri b could be habitable because its star is a red dwarf much cooler than our Sun. Most intriguingly, it receives roughly the same amount of energy as Earth, but its year lasts only 11 Earth days. Scientists have detected possible signs of volcanic activity, which could indicate an active core and protective magnetic field.",
           habitability: "Potentially habitable",
-          image: "/placeholder.svg?height=400&width=600",
+          image: "/images/exoplanets/proxima-centauri-b.jpg",
         },
         {
           name: "Kepler-186f",
           type: "Rocky planet",
           distance: "582 light-years",
           discovery: "2014",
-          description: "The first Earth-sized planet discovered in the habitable zone of another star.",
+          description:
+            "The first Earth-sized planet discovered in the habitable zone of another star. What makes Kepler-186f special is that it orbits a cooler, redder star than our Sun, meaning its sunrises and sunsets would be an intense red color. Scientists believe it could have seasons similar to Earth's, but with different durations due to its 130-day orbit. Its size suggests it likely has a rocky composition and could maintain a stable atmosphere.",
           habitability: "Potentially habitable",
-          image: "/placeholder.svg?height=400&width=600",
+          image: "/images/exoplanets/kepler-186f.jpg",
         },
         {
           name: "HD 189733 b",
@@ -103,9 +104,9 @@ export default function ExoplanetsPage() {
           distance: "64.5 light-years",
           discovery: "2005",
           description:
-            "A gas giant with deep blue color, likely due to silicate particles in its atmosphere that scatter blue light.",
+            "A gas giant that defies imagination with its extreme characteristics. Its deep cobalt blue color is due to silicate particles in its atmosphere that scatter blue light. Most remarkably, its atmosphere reaches temperatures of 1,000°C and is battered by supersonic winds up to 8,700 km/h. Additionally, it rains liquid glass horizontally due to the extreme conditions. It was the first exoplanet to have its weather map created and water vapor detected in its atmosphere.",
           habitability: "Not habitable",
-          image: "/placeholder.svg?height=400&width=600",
+          image: "/images/exoplanets/hd-189733b.jpg",
         },
         {
           name: "55 Cancri e",
@@ -113,9 +114,9 @@ export default function ExoplanetsPage() {
           distance: "41 light-years",
           discovery: "2004",
           description:
-            "A planet that might be covered in oceans of super-critical carbon, meaning its surface could be covered in diamonds.",
+            "A truly exotic world that challenges our understanding of planets. Known as the 'diamond planet', its surface could be covered in supercritical carbon oceans and a crust of graphite and diamond. Most fascinatingly, it completes an orbit in just 18 hours, meaning a year there lasts less than an Earth day. Its surface temperature exceeds 2,000°C, causing carbon on its surface to crystallize into diamond. Scientists believe it could have a molten iron core generating an extremely powerful magnetic field.",
           habitability: "Not habitable",
-          image: "/placeholder.svg?height=400&width=600",
+          image: "/images/exoplanets/55-cancri-e.jpg",
         },
       ],
     },
@@ -158,9 +159,9 @@ export default function ExoplanetsPage() {
           distance: "39.6 años luz",
           discovery: "2017",
           description:
-            "Un planeta potencialmente habitable del tamaño de la Tierra en el sistema TRAPPIST-1, que contiene siete planetas rocosos en total.",
+            "Un mundo fascinante que orbita una estrella enana ultrafría. Lo más sorprendente es que forma parte de un sistema de siete planetas, todos del tamaño de la Tierra, que están tan cerca entre sí que desde la superficie de TRAPPIST-1e, los otros planetas aparecerían en el cielo más grandes que nuestra Luna. Los científicos creen que podría tener océanos de agua líquida y una atmósfera densa, lo que lo convierte en uno de los mejores candidatos para la búsqueda de vida.",
           habitability: "Alto potencial",
-          image: "/placeholder.svg?height=400&width=600",
+          image: "/images/exoplanets/trappist-1e.jpg",
         },
         {
           name: "Proxima Centauri b",
@@ -168,18 +169,19 @@ export default function ExoplanetsPage() {
           distance: "4.2 años luz",
           discovery: "2016",
           description:
-            "El exoplaneta conocido más cercano a nuestro sistema solar, orbitando a nuestro vecino estelar más cercano, Proxima Centauri.",
+            "El exoplaneta más cercano a nuestro sistema solar, orbitando nuestra estrella vecina más próxima. A pesar de estar muy cerca de su estrella, Proxima Centauri b podría ser habitable gracias a que su estrella es una enana roja mucho más fría que nuestro Sol. Lo más intrigante es que recibe aproximadamente la misma cantidad de energía que la Tierra, pero su año dura solo 11 días terrestres. Los científicos han detectado posibles señales de actividad volcánica, lo que podría indicar un núcleo activo y un campo magnético protector.",
           habitability: "Potencialmente habitable",
-          image: "/placeholder.svg?height=400&width=600",
+          image: "/images/exoplanets/proxima-centauri-b.jpg",
         },
         {
           name: "Kepler-186f",
           type: "Planeta rocoso",
           distance: "582 años luz",
           discovery: "2014",
-          description: "El primer planeta del tamaño de la Tierra descubierto en la zona habitable de otra estrella.",
+          description:
+            "El primer planeta del tamaño de la Tierra descubierto en la zona habitable de otra estrella. Lo que hace especial a Kepler-186f es que orbita una estrella más fría y rojiza que nuestro Sol, lo que significa que sus amaneceres y atardeceres serían de un intenso color rojo. Los científicos creen que podría tener estaciones similares a las de la Tierra, pero con una duración diferente debido a su órbita de 130 días. Su tamaño sugiere que probablemente tiene una composición rocosa y podría mantener una atmósfera estable.",
           habitability: "Potencialmente habitable",
-          image: "/placeholder.svg?height=400&width=600",
+          image: "/images/exoplanets/kepler-186f.jpg",
         },
         {
           name: "HD 189733 b",
@@ -187,9 +189,9 @@ export default function ExoplanetsPage() {
           distance: "64.5 años luz",
           discovery: "2005",
           description:
-            "Un gigante gaseoso de color azul profundo, probablemente debido a partículas de silicato en su atmósfera que dispersan la luz azul.",
+            "Un gigante gaseoso que desafía la imaginación con sus características extremas. Su profundo color azul cobalto se debe a la presencia de partículas de silicato en su atmósfera que dispersan la luz azul. Lo más sorprendente es que su atmósfera alcanza temperaturas de 1,000°C y está azotada por vientos supersónicos de hasta 8,700 km/h. Además, llueve vidrio líquido horizontalmente debido a las condiciones extremas. Fue el primer exoplaneta del que se obtuvo un mapa del clima y se detectó vapor de agua en su atmósfera.",
           habitability: "No habitable",
-          image: "/placeholder.svg?height=400&width=600",
+          image: "/images/exoplanets/hd-189733b.jpg",
         },
         {
           name: "55 Cancri e",
@@ -197,9 +199,9 @@ export default function ExoplanetsPage() {
           distance: "41 años luz",
           discovery: "2004",
           description:
-            "Un planeta que podría estar cubierto de océanos de carbono supercrítico, lo que significa que su superficie podría estar cubierta de diamantes.",
+            "Un mundo verdaderamente exótico que desafía nuestra comprensión de los planetas. Conocido como el 'planeta diamante', su superficie podría estar cubierta de océanos de carbono supercrítico y una corteza de grafito y diamante. Lo más fascinante es que completa una órbita en solo 18 horas, lo que significa que un año allí dura menos de un día terrestre. Su temperatura superficial supera los 2,000°C, lo que hace que el carbono en su superficie se cristalice en diamante. Los científicos creen que podría tener un núcleo de hierro fundido que genera un campo magnético extremadamente potente.",
           habitability: "No habitable",
-          image: "/placeholder.svg?height=400&width=600",
+          image: "/images/exoplanets/55-cancri-e.jpg",
         },
       ],
     },
@@ -215,22 +217,20 @@ export default function ExoplanetsPage() {
       <Header />
 
       <main className="flex-1 pt-16">
-        {/* Hero Section with Parallax */}
-        <section
-          ref={containerRef}
-          className="relative w-full bg-gradient-to-b from-black to-zinc-900 py-12 md:py-24 overflow-hidden"
-        >
-          {/* Animated background elements */}
-          <motion.div
-            className="absolute top-20 left-[10%] w-64 h-64 rounded-full bg-purple-500/5 blur-3xl"
-            style={{ y }}
-          />
-          <motion.div
-            className="absolute bottom-10 right-[10%] w-80 h-80 rounded-full bg-blue-500/5 blur-3xl"
-            style={{ y: useTransform(scrollYProgress, [0, 1], [0, -200]) }}
-          />
-
-          <div className="container relative z-10 px-4 md:px-6">
+        {/* Hero Section estilo black holes */}
+        <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-black to-zinc-900 py-0 md:py-0 overflow-hidden">
+          {/* Video de fondo */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover z-0 opacity-60"
+          >
+            <source src="/videos/exoplanets-hero.mp4" type="video/mp4" />
+            Tu navegador no soporta el video.
+          </video>
+          <div className="container relative z-10 px-4 md:px-6 flex flex-col items-center justify-center min-h-screen">
             <motion.div
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -239,16 +239,18 @@ export default function ExoplanetsPage() {
             >
               <div className="space-y-2">
                 <Link
-                  href="/home"
-                  className="inline-flex items-center rounded-lg bg-black px-3 py-1 text-sm text-white font-space border border-white shadow hover:bg-white hover:text-black transition-colors"
+                  href="/"
+                  className="inline-flex items-center rounded-lg bg-black px-3 py-1 text-sm text-white font-space"
                 >
                   <ArrowLeft className="mr-1 h-3 w-3" />
                   {language === "es" ? "Inicio" : "Home"}
                 </Link>
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none font-space">
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] font-space px-4 py-2 rounded-lg">
                   {exoplanetData.title}
                 </h1>
-                <p className="mx-auto max-w-[700px] text-zinc-400 md:text-xl">{exoplanetData.subtitle}</p>
+                <p className="mx-auto max-w-[700px] text-white md:text-xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] font-helvetica px-4 py-2 rounded-lg">
+                  {exoplanetData.subtitle}
+                </p>
               </div>
             </motion.div>
           </div>
@@ -276,11 +278,14 @@ export default function ExoplanetsPage() {
               <ScrollReveal direction="right">
                 <div className="flex items-center justify-center">
                   <div className="relative h-[400px] w-full overflow-hidden rounded-lg">
-                    <Image
-                      src="/placeholder.svg?height=800&width=1200"
-                      alt="Exoplanets Overview"
-                      fill
-                      className="object-cover"
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src="https://www.youtube.com/embed/0ZOhJe_7GrE"
+                      title="Exoplanets Overview"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="absolute inset-0"
                     />
                   </div>
                 </div>
@@ -308,7 +313,7 @@ export default function ExoplanetsPage() {
               </div>
             </ScrollReveal>
 
-            <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
               {[
                 {
                   title: exoplanetData.transit,
@@ -336,10 +341,10 @@ export default function ExoplanetsPage() {
                 },
               ].map((method, index) => (
                 <ScrollReveal key={index} delay={method.delay}>
-                  <GlassmorphismCard>
+                  <GlassmorphismCard className="h-full flex flex-col">
                     <div className="mb-4">{method.icon}</div>
                     <h3 className="mb-2 text-xl font-bold">{method.title}</h3>
-                    <p className="text-zinc-400">{method.description}</p>
+                    <p className="text-zinc-400 flex-1">{method.description}</p>
                   </GlassmorphismCard>
                 </ScrollReveal>
               ))}
@@ -439,11 +444,14 @@ export default function ExoplanetsPage() {
               <ScrollReveal direction="left">
                 <div className="flex items-center justify-center">
                   <div className="relative h-[400px] w-full overflow-hidden rounded-lg">
-                    <Image
-                      src="/placeholder.svg?height=800&width=1200"
-                      alt="Habitable Zone"
-                      fill
-                      className="object-cover"
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src="https://www.youtube.com/embed/CJUVd8SguDw"
+                      title="La Búsqueda de Vida en Exoplanetas"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="absolute inset-0"
                     />
                   </div>
                 </div>
@@ -483,36 +491,6 @@ export default function ExoplanetsPage() {
                   </div>
                 </div>
               </ScrollReveal>
-            </div>
-          </div>
-        </section>
-
-        {/* 3D Models Section (Placeholder) */}
-        <section className="w-full py-12 md:py-24">
-          <div className="container px-4 md:px-6">
-            <ScrollReveal>
-              <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                <div className="space-y-2">
-                  <div className="inline-block rounded-lg bg-purple-500/10 px-3 py-1 text-sm text-purple-400">
-                    {exoplanetData.models}
-                  </div>
-                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-space">
-                    {exoplanetData.modelsTitle}
-                  </h2>
-                  <p className="mx-auto max-w-[700px] text-zinc-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                    {exoplanetData.modelsDesc}
-                  </p>
-                </div>
-              </div>
-            </ScrollReveal>
-
-            <div className="mt-16">
-              <div className="flex h-[400px] items-center justify-center rounded-lg border border-dashed border-zinc-700 bg-zinc-900/50 p-8">
-                <div className="text-center">
-                  <Planet className="mx-auto mb-4 h-16 w-16 text-zinc-600" />
-                  <p className="text-xl font-medium text-zinc-500">{exoplanetData.modelPlaceholder}</p>
-                </div>
-              </div>
             </div>
           </div>
         </section>

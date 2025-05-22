@@ -7,10 +7,11 @@
     "blackHoles": "Black Holes",
     "nebulae": "Nebulae",
     "exoplanets": "Exoplanets",
-    "technology": "Space Technology",
-    "missions": "Space Missions",
-    "quiz": "Space Quiz",
-    "kids": "Kids"
+    "technology": "Technology",
+    "missions": "Missions",
+    "quiz": "Quiz",
+    "kids": "Kids",
+    "ebooks": "E-books"
   },
   "home": {
     "hero": {
@@ -359,5 +360,16 @@
   },
   "buttons": {
     "resetViewText": "Reset View"
+  },
+  "ebooks": {
+    "title": "NASA E-books",
+    "subtitle": "Download official NASA books and explore the cosmos from your device",
+    "download": "Download PDF",
+    "categories": {
+      "earth": "Earth Science",
+      "planetary": "Planetary Science",
+      "technology": "Technology",
+      "astronomy": "Astronomy"
+    }
   }
 }
