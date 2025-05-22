@@ -64,7 +64,7 @@ export default function MissionsPage() {
             playsInline
             className="absolute inset-0 w-full h-full object-cover z-0 opacity-60"
           >
-            <source src="/videos/missions-hero.webm" type="video/webm" />
+            <source src="/videos/missions-hero.mp4" type="video/mp4" />
             Tu navegador no soporta el video.
           </video>
           <div className="container relative z-10 px-4 md:px-6 flex flex-col items-center justify-center min-h-screen">

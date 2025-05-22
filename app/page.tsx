@@ -16,6 +16,12 @@ export default function HomePage() {
     setHasSeenWelcome(welcomeSeen)
   }, [])
 
+  useEffect(() => {
+    if (isClient && hasSeenWelcome) {
+      router.push("/home")
+    }
+  }, [isClient, hasSeenWelcome, router])
+
   const handleStart = () => {
     // Marcar que el usuario ha visto la pantalla de bienvenida
     if (isClient) {
@@ -30,10 +36,9 @@ export default function HomePage() {
     return <div className="h-screen w-screen bg-black"></div> // Pantalla de carga
   }
 
-  // Si el usuario ya ha visto la pantalla de bienvenida, redirigir a home
+  // Si el usuario ya ha visto la pantalla de bienvenida, mostrar pantalla de carga mientras redirige
   if (hasSeenWelcome) {
-    router.push("/home")
-    return <div className="h-screen w-screen bg-black"></div> // Pantalla de carga mientras redirige
+    return <div className="h-screen w-screen bg-black"></div>
   }
 
   // Si el usuario no ha visto la pantalla de bienvenida, mostrarla
