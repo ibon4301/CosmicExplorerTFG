@@ -393,5 +393,27 @@
     "until": "Valid until",
     "upgradeMsg": "Want to upgrade your subscription? Choose a higher plan and pay only the difference.",
     "upgradeBtn": "Upgrade to"
+  },
+  "profile": {
+    "title": "My Profile",
+    "username": "Username",
+    "email": "Email",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "changePassword": "Change password",
+    "confirmPassword": "Confirm your password",
+    "password": "Current password",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "profileUpdated": "Profile updated successfully",
+    "incorrectPassword": "Incorrect password",
+    "emailInUse": "That email is already in use",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "passwordsDontMatch": "Passwords do not match",
+    "passwordChanged": "Password changed successfully",
+    "confirm": "Confirm",
+    "randomAvatar": "Choose random avatar",
+    "saveAvatar": "Save avatar"
   }
 }

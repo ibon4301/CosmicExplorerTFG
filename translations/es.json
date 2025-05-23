@@ -376,9 +376,28 @@
   "account": {
     "login": "Iniciar sesión",
     "register": "Registrarse",
-    "profile": "Perfil",
-    "settings": "Ajustes",
-    "myReviews": "Mis Reseñas",
+    "profile": {
+      "title": "Mi perfil",
+      "username": "Nombre de usuario",
+      "email": "Correo electrónico",
+      "edit": "Editar",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "changePassword": "Cambiar contraseña",
+      "confirmPassword": "Confirma tu contraseña",
+      "password": "Contraseña actual",
+      "newPassword": "Nueva contraseña",
+      "confirmNewPassword": "Confirmar nueva contraseña",
+      "profileUpdated": "Perfil actualizado correctamente",
+      "incorrectPassword": "Contraseña incorrecta",
+      "emailInUse": "Ese correo ya está en uso",
+      "passwordTooShort": "La contraseña debe tener al menos 6 caracteres",
+      "passwordsDontMatch": "Las contraseñas no coinciden",
+      "passwordChanged": "Contraseña cambiada correctamente",
+      "confirm": "Confirmar",
+      "randomAvatar": "Elegir avatar al azar",
+      "saveAvatar": "Guardar avatar"
+    },
     "logout": "Cerrar sesión"
   },
   "plans": {

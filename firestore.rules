@@ -1,0 +1,19 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Permitir leer a cualquiera
+    match /ebookComments/{comment} {
+      allow read: if true;
+      // Solo usuarios autenticados pueden crear comentarios
+      allow create: if request.auth != null;
+      // Permitir editar y borrar solo al usuario que creó el comentario
+      allow update, delete: if request.auth != null && 
+        resource.data.username == request.auth.token.email;
+    }
+
+    // Permitir a cada usuario autenticado leer y escribir SOLO su propio documento en users
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+} 

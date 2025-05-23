@@ -19,6 +19,7 @@ export default function Header() {
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const userMenuRef = useRef<HTMLDivElement>(null)
   const [authModalMode, setAuthModalMode] = useState<'login' | 'register'>("login")
+  const [avatarSeed, setAvatarSeed] = useState<string | null>(null)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -133,7 +134,17 @@ export default function Header() {
               onClick={() => setUserMenuOpen((v) => !v)}
               aria-label="Menú de usuario"
             >
-              <UserCircle className="h-7 w-7 text-blue-400" />
+              {user ? (
+                user.photoURL ? (
+                  <img src={user.photoURL} alt="Avatar" className="h-7 w-7 rounded-full object-cover" />
+                ) : avatarSeed ? (
+                  <img src={`https://api.dicebear.com/7.x/bottts/svg?seed=${avatarSeed}`} alt="Avatar" className="h-7 w-7 rounded-full object-cover" />
+                ) : (
+                  <UserCircle className="h-7 w-7 text-blue-400" />
+                )
+              ) : (
+                <UserCircle className="h-7 w-7 text-blue-400" />
+              )}
             </button>
             {userMenuOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-zinc-900 border border-zinc-800 rounded-lg shadow-lg z-50 animate-fade-in">
@@ -157,9 +168,13 @@ export default function Header() {
                     <div className="px-4 py-2 text-xs text-zinc-400 border-b border-zinc-800">
                       {user.displayName || user.email}
                     </div>
-                    <button className="w-full flex items-center gap-2 px-4 py-2 text-sm hover:bg-zinc-800 text-white">
+                    <Link
+                      href="/profile"
+                      className="w-full flex items-center gap-2 px-4 py-2 text-sm hover:bg-zinc-800 text-white"
+                      onClick={() => setUserMenuOpen(false)}
+                    >
                       <User className="w-4 h-4" /> {t("account.profile")}
-                    </button>
+                    </Link>
                     <button className="w-full flex items-center gap-2 px-4 py-2 text-sm hover:bg-zinc-800 text-white">
                       <Settings className="w-4 h-4" /> {t("account.settings")}
                     </button>

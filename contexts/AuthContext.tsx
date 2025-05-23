@@ -11,6 +11,8 @@ interface AuthContextProps {
   register: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   loginWithGoogle: () => Promise<void>;
+  avatarSeed?: string | null;
+  setAvatarSeed?: (seed: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -24,6 +26,7 @@ export function useAuth() {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [avatarSeed, setAvatarSeedState] = useState<string | null>(null);
   const auth = getAuth(app);
 
   useEffect(() => {
@@ -33,6 +36,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
     return () => unsubscribe();
   }, [auth]);
+
+  // Simulación: cargar avatarSeed de localStorage (ajusta según tu lógica real)
+  useEffect(() => {
+    const stored = localStorage.getItem("avatarSeed");
+    if (stored) setAvatarSeedState(stored);
+  }, []);
+
+  const setAvatarSeed = async (seed: string) => {
+    setAvatarSeedState(seed);
+    localStorage.setItem("avatarSeed", seed);
+    // Aquí podrías guardar el seed en Firestore si lo necesitas
+  };
 
   const login = async (email: string, password: string) => {
     setLoading(true);
@@ -60,7 +75,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, loginWithGoogle }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, loginWithGoogle, avatarSeed, setAvatarSeed }}>
       {children}
     </AuthContext.Provider>
   );

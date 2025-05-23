@@ -1,4 +1,4 @@
-import { collection, addDoc, query, where, getDocs, orderBy, Timestamp } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs, orderBy, Timestamp, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 
 export interface EbookComment {
@@ -7,6 +7,9 @@ export interface EbookComment {
   comment: string;
   rating: number;
   createdAt: Timestamp;
+  title?: string;
+  photoURL?: string | null;
+  avatarSeed?: string | null;
 }
 
 // Guardar un comentario
@@ -26,4 +29,25 @@ export async function getEbookComments(ebookTitle: string): Promise<EbookComment
   );
   const querySnapshot = await getDocs(q);
   return querySnapshot.docs.map(doc => doc.data() as EbookComment);
+}
+
+// Obtener comentarios de un usuario
+export async function getUserComments(username: string): Promise<(EbookComment & { id: string })[]> {
+  const q = query(
+    collection(db, "ebookComments"),
+    where("username", "==", username),
+    orderBy("createdAt", "desc")
+  );
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map(docSnap => ({ ...(docSnap.data() as EbookComment), id: docSnap.id }));
+}
+
+// Eliminar comentario por ID
+export async function deleteEbookComment(commentId: string) {
+  await deleteDoc(doc(db, "ebookComments", commentId));
+}
+
+// Editar comentario por ID
+export async function editEbookComment(commentId: string, data: Partial<Omit<EbookComment, 'createdAt' | 'username'>>) {
+  await updateDoc(doc(db, "ebookComments", commentId), data);
 } 
