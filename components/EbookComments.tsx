@@ -130,7 +130,7 @@ export default function EbookComments({ ebookTitle, ebookImage, ebookDescription
           >
             <Pencil className="w-5 h-5 text-blue-400 hover:text-blue-600" />
             {showTooltip === "review" && (
-              <span className="absolute left-1/2 -translate-x-1/2 top-8 bg-zinc-800 text-white text-xs px-2 py-1 rounded shadow-lg z-50 whitespace-nowrap animate-fade-in">
+              <span className="absolute right-0 top-8 bg-zinc-800 text-white text-xs px-2 py-1 rounded shadow-lg z-50 whitespace-nowrap animate-fade-in">
                 {language === "es" ? "¡Escribe una reseña!" : "Write a review!"}
               </span>
             )}
@@ -143,7 +143,7 @@ export default function EbookComments({ ebookTitle, ebookImage, ebookDescription
           >
             <MessageCircle className="w-5 h-5 text-blue-400 hover:text-blue-600" />
             {showTooltip === "comments" && (
-              <span className="absolute left-1/2 -translate-x-1/2 top-8 bg-zinc-800 text-white text-xs px-2 py-1 rounded shadow-lg z-50 whitespace-nowrap animate-fade-in">
+              <span className="absolute right-0 top-8 bg-zinc-800 text-white text-xs px-2 py-1 rounded shadow-lg z-50 whitespace-nowrap animate-fade-in">
                 {language === "es" ? "Comentarios" : "Comments"}
               </span>
             )}

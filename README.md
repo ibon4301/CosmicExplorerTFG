@@ -1,90 +1,73 @@
-# CosmicExplorer
+# Cosmic Explorer
 
-## Descripción del Proyecto
-CosmicExplorer es una aplicación web educativa interactiva diseñada para explorar el cosmos. Esta plataforma ofrece una experiencia inmersiva para aprender sobre astronomía, planetas, galaxias y fenómenos espaciales a través de visualizaciones 3D, datos científicos y contenido educativo interactivo.
+Una aplicación web interactiva para explorar el cosmos, desarrollada con Next.js y TypeScript.
 
-## Características Principales
-- Visualizaciones 3D interactivas de planetas y cuerpos celestes
-- Información detallada sobre el sistema solar
-- Gráficos y visualizaciones de datos científicos
-- Soporte multiidioma
-- Noticias espaciales actualizadas
-- Timeline de misiones espaciales
-- Comparaciones planetarias
-- Cuestionarios interactivos
+## Características
 
-## Tecnologías Utilizadas
-- Next.js 15.2.4
-- React 19
+- Exploración interactiva del sistema solar
+- Información detallada sobre planetas y cuerpos celestes
+- E-books de la NASA disponibles para descarga
+- Sistema de comentarios y valoraciones
+- Soporte multiidioma (Español/Inglés)
+- Diseño responsive y moderno
+
+## Tecnologías utilizadas
+
+- Next.js 14
 - TypeScript
 - Tailwind CSS
-- Three.js
-- i18next
+- Firebase (Autenticación y Base de datos)
 - Framer Motion
-- React Three Fiber
-- Nivo Charts
-
-## Requisitos Previos
-- Node.js (versión 18 o superior)
-- npm o yarn
-- Git
+- Lucide Icons
 
 ## Instalación
-1. Clonar el repositorio:
+
+1. Clona el repositorio:
 ```bash
-git clone https://github.com/tu-usuario/cosmicexplorer.git
+git clone https://github.com/tu-usuario/cosmic-explorer.git
 ```
 
-2. Instalar dependencias:
+2. Instala las dependencias:
 ```bash
-cd cosmicexplorer
 npm install
 # o
 yarn install
 ```
 
-3. Iniciar el servidor de desarrollo:
+3. Configura las variables de entorno:
+Crea un archivo `.env.local` con las siguientes variables:
+```
+NEXT_PUBLIC_FIREBASE_API_KEY=tu_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=tu_auth_domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=tu_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=tu_storage_bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=tu_messaging_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=tu_app_id
+```
+
+4. Inicia el servidor de desarrollo:
 ```bash
 npm run dev
 # o
 yarn dev
 ```
 
-4. Abrir [http://localhost:3000](http://localhost:3000) en tu navegador
+## Estructura del proyecto
 
-## Estructura del Proyecto
 ```
-cosmicexplorer/
-├── app/                    # Rutas y páginas principales
-├── components/            # Componentes reutilizables
-├── public/               # Archivos estáticos
-├── styles/              # Estilos globales
-├── translations/        # Archivos de internacionalización
-└── contexts/           # Contextos de React
+cosmic-explorer/
+├── app/                # Directorio principal de la aplicación
+├── components/         # Componentes reutilizables
+├── contexts/          # Contextos de React
+├── lib/               # Utilidades y configuraciones
+├── public/            # Archivos estáticos
+└── styles/            # Estilos globales
 ```
 
-## Secciones Principales
-- Sistema Solar
-- Planetas
-- Galaxias
-- Agujeros Negros
-- Nebulosas
-- Exoplanetas
-- Misiones Espaciales
-- Tecnología Espacial
-- Quiz Interactivo
+## Contribuir
 
-## Desarrollo
-Para contribuir al proyecto:
-1. Crear una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-2. Commit de tus cambios (`git commit -m 'Add some AmazingFeature'`)
-3. Push a la rama (`git push origin feature/AmazingFeature`)
-4. Abrir un Pull Request
+Las contribuciones son bienvenidas. Por favor, abre un issue primero para discutir los cambios que te gustaría hacer.
 
 ## Licencia
+
 Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
-
-## Contacto
-Tu Nombre - [@tutwitter](https://twitter.com/tutwitter) - email@ejemplo.com
-
-Link del Proyecto: [https://github.com/tu-usuario/cosmicexplorer](https://github.com/tu-usuario/cosmicexplorer)

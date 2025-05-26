@@ -126,7 +126,9 @@ export default function EbooksPage() {
                         </div>
                         <div className="p-6 flex flex-col flex-grow">
                           <h3 className="mb-2 text-xl font-bold text-white">{book.title}</h3>
-                          <p className="mb-4 text-sm text-zinc-400 flex-grow">{book.description}</p>
+                          <p className="mb-4 text-sm text-zinc-400 flex-grow">
+                            {language === "es" ? `Descarga el PDF de ${book.title}` : `Download the PDF of ${book.title}`}
+                          </p>
                           <a
                             href={book.downloadUrl}
                             className="inline-flex items-center space-x-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 w-fit"
@@ -140,7 +142,7 @@ export default function EbooksPage() {
                           <EbookComments 
                             ebookTitle={book.title} 
                             ebookImage={book.image} 
-                            ebookDescription={book.description} 
+                            ebookDescription={language === "es" ? `Descarga el PDF de ${book.title}` : `Download the PDF of ${book.title}`} 
                             onShowComments={() => setCommentsModal({ open: true, ebook: book })}
                           />
                         </div>
