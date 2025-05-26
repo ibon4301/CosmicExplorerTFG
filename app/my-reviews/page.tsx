@@ -110,7 +110,7 @@ export default function MyReviewsPage() {
 
   const handleEdit = (review: Review) => {
     setEditingId(review.id);
-    setEditData({ title: review.title, comment: review.comment, rating: review.rating });
+    setEditData({ title: review.title || "", comment: review.comment || "", rating: review.rating });
   };
 
   const handleSaveEdit = async () => {
@@ -187,7 +187,7 @@ export default function MyReviewsPage() {
                           <div className="flex items-center gap-2">
                             {/* Avatar actual del usuario autenticado */}
                             {user?.photoURL ? (
-                              <img src={user.photoURL} alt={avatarAlt} className="w-8 h-8 rounded-full object-cover border border-zinc-700" />
+                              <img src={user.photoURL ? user.photoURL : ""} alt={avatarAlt} className="w-8 h-8 rounded-full object-cover border border-zinc-700" />
                             ) : avatarSeed ? (
                               <img src={`https://api.dicebear.com/7.x/bottts/svg?seed=${avatarSeed}`} alt={avatarAlt} className="w-8 h-8 rounded-full object-cover border border-zinc-700" />
                             ) : (
