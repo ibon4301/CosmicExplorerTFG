@@ -16,7 +16,7 @@ Una aplicación web interactiva para explorar el cosmos, desarrollada con Next.j
 - Next.js 14
 - TypeScript
 - Tailwind CSS
-- Firebase (Autenticación y Base de datos)
+- Firebase (Autenticación , Base de Datos, Sistema de comentarios y Valoraciones)
 - Framer Motion
 - Lucide Icons
 
@@ -31,7 +31,7 @@ git clone https://github.com/tu-usuario/cosmic-explorer.git
 ```bash
 npm install
 # o
-yarn install
+yarn install 
 ```
 
 3. Configura las variables de entorno:
@@ -63,10 +63,6 @@ cosmic-explorer/
 ├── public/            # Archivos estáticos
 └── styles/            # Estilos globales
 ```
-
-## Contribuir
-
-Las contribuciones son bienvenidas. Por favor, abre un issue primero para discutir los cambios que te gustaría hacer.
 
 ## Licencia
 
