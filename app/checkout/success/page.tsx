@@ -52,4 +52,6 @@ export default function SuccessPage() {
       </div>
     </div>
   )
-} 
+}
+
+export const dynamic = "force-dynamic"; 
