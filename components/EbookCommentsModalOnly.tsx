@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { getEbookComments, EbookComment } from "@/lib/firebase/comments";
 import { X } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
+import { db } from "@/lib/firebase/firebaseConfig";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { UserCircle } from "lucide-react";
 
 interface Props {
   ebookTitle: string;
@@ -14,11 +18,19 @@ export default function EbookCommentsModalOnly({ ebookTitle, ebookImage, ebookDe
   const [comments, setComments] = useState<EbookComment[]>([]);
   const { language } = useLanguage();
   const [loading, setLoading] = useState(false);
+  const [userAvatars, setUserAvatars] = useState<{ [email: string]: string | null }>({});
 
   useEffect(() => {
     fetchComments();
     // eslint-disable-next-line
   }, [ebookTitle]);
+
+  useEffect(() => {
+    comments.forEach(c => {
+      if (!c.photoURL && c.email) fetchAvatarSeed(c.email);
+    });
+    // eslint-disable-next-line
+  }, [comments]);
 
   async function fetchComments() {
     setLoading(true);
@@ -29,6 +41,18 @@ export default function EbookCommentsModalOnly({ ebookTitle, ebookImage, ebookDe
       // Puedes mostrar un error si quieres
     }
     setLoading(false);
+  }
+
+  async function fetchAvatarSeed(email: string) {
+    if (userAvatars[email] !== undefined) return; // Ya está en caché
+    const q = query(collection(db, "users"), where("email", "==", email));
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      const data = querySnapshot.docs[0].data();
+      setUserAvatars(prev => ({ ...prev, [email]: data.avatarSeed || null }));
+    } else {
+      setUserAvatars(prev => ({ ...prev, [email]: null }));
+    }
   }
 
   return (
@@ -56,7 +80,18 @@ export default function EbookCommentsModalOnly({ ebookTitle, ebookImage, ebookDe
           {!loading && comments.length === 0 && <p className="text-zinc-400 text-center">{language === "es" ? "Aún no hay comentarios." : "No comments yet."}</p>}
           {comments.map((c, i) => (
             <div key={i} className="mb-4 border-b border-zinc-800 pb-2">
-              <div className="flex items-center mb-1">
+              <div className="flex items-center mb-1 gap-2">
+                <Avatar className="h-8 w-8 border border-zinc-700 bg-zinc-800">
+                  {c.photoURL ? (
+                    <AvatarImage src={c.photoURL} alt={c.username} />
+                  ) : c.avatarSeed ? (
+                    <AvatarImage src={`https://api.dicebear.com/7.x/bottts/svg?seed=${c.avatarSeed}`} alt={c.username} />
+                  ) : (
+                    <AvatarFallback>
+                      <UserCircle className="w-5 h-5 text-zinc-400" />
+                    </AvatarFallback>
+                  )}
+                </Avatar>
                 <span className="font-semibold text-blue-200 mr-2">{c.username}</span>
                 <span className="text-yellow-400 text-lg">{"★".repeat(c.rating)}</span>
                 <span className="text-zinc-500 ml-2 text-xs">

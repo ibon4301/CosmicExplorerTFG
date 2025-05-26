@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
 import PlanetComparisonChart from "@/components/planet-comparison-chart"
 import PlanetCompositionChart from "@/components/planet-composition-chart"
-import MainHeader from "@/components/main-header"
+import Header from "@/components/header"
 import Footer from "@/components/footer"
 import VenusTemperatureChart from "@/components/venus-temperature-chart"
 import VenusAtmosphereChart from "@/components/venus-atmosphere-chart"
@@ -53,7 +53,7 @@ export default function VenusPage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <MainHeader />
+      <Header />
 
       <main className="container mx-auto px-4 pt-24 pb-16">
         <div className="mb-8 text-center">

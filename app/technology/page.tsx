@@ -173,7 +173,7 @@ export default function TechnologyPage() {
     },
   }
 
-  const techData = translations[language] || translations.en
+  const techData = translations[language as 'en' | 'es'] || translations.en
 
   return (
     <div
@@ -191,7 +191,7 @@ export default function TechnologyPage() {
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover z-0 opacity-60"
+            className="absolute inset-0 w-full h-full object-cover object-center z-0 opacity-60 scale-150"
           >
             <source src="/videos/technology-hero.mp4" type="video/mp4" />
             Tu navegador no soporta el video.
@@ -325,7 +325,7 @@ export default function TechnologyPage() {
                           lifesupport: "/images/technology/lifesupport.jpg",
                           navigation: "/images/technology/navigation.jpg",
                           protection: "/images/technology/protection.jpg",
-                        }[activeTab]
+                        }[activeTab] ?? "/images/default.jpg"
                       } 
                       alt={
                         {
@@ -335,7 +335,7 @@ export default function TechnologyPage() {
                           lifesupport: techData.lifesupport,
                           navigation: techData.navigation,
                           protection: techData.protection,
-                        }[activeTab]
+                        }[activeTab] ?? "Imagen tecnología"
                       }
                       fill 
                       className="object-cover" 

@@ -8,6 +8,7 @@ export interface EbookComment {
   rating: number;
   createdAt: Timestamp;
   title?: string;
+  email?: string | null;
   photoURL?: string | null;
   avatarSeed?: string | null;
 }
@@ -32,14 +33,18 @@ export async function getEbookComments(ebookTitle: string): Promise<EbookComment
 }
 
 // Obtener comentarios de un usuario
-export async function getUserComments(username: string): Promise<(EbookComment & { id: string })[]> {
+export async function getUserComments(email: string): Promise<(EbookComment & { id: string })[]> {
+  console.log('DEBUG getUserComments email:', email);
   const q = query(
     collection(db, "ebookComments"),
-    where("username", "==", username),
+    where("email", "==", email),
     orderBy("createdAt", "desc")
   );
   const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map(docSnap => ({ ...(docSnap.data() as EbookComment), id: docSnap.id }));
+  console.log('DEBUG getUserComments docs encontrados:', querySnapshot.size);
+  const docs = querySnapshot.docs.map(docSnap => ({ ...(docSnap.data() as EbookComment), id: docSnap.id }));
+  console.log('DEBUG getUserComments docs:', docs);
+  return docs;
 }
 
 // Eliminar comentario por ID

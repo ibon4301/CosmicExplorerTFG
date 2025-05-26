@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { CheckCircle, ArrowLeft } from "lucide-react"
 import { useAuth } from "@/contexts/AuthContext"
-import MainHeader from "@/components/main-header"
+import Header from "@/components/header"
 import { doc, getDoc, setDoc, Timestamp } from "firebase/firestore"
 import { db } from "@/lib/firebase/firebaseConfig"
 import { useLanguage } from "@/contexts/language-context"
@@ -184,7 +184,7 @@ function SubscriptionUpgrade({ userSubscription, user, setUserSubscription, t, r
   }
   return (
     <>
-      <MainHeader />
+      <Header />
       <div className="pt-16 min-h-screen flex flex-col items-center justify-center py-12 px-4">
         <div className="max-w-md w-full mx-auto mt-4 p-6 bg-green-900/30 border border-green-700 rounded-2xl text-green-300 text-sm shadow flex flex-col gap-2">
           <button
@@ -433,7 +433,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <MainHeader />
+      <Header />
       <div className="pt-16 min-h-screen flex flex-col items-center justify-center py-12 px-4">
         <div className="w-full max-w-2xl bg-zinc-950 rounded-2xl shadow-2xl p-8">
           <button

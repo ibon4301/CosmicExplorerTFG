@@ -302,7 +302,7 @@ export default function GalaxiesQuizPage() {
                       ))}
                       {submitted && (
                         <div className="mt-2 rounded-md bg-zinc-900 p-3 text-sm text-zinc-300">
-                          <strong className="text-purple-400">Explanation:</strong> {explanations[`q${qIndex + 1}`]}
+                          <strong className="text-purple-400">{language === 'es' ? 'Explicación:' : 'Explanation:'}</strong> {explanations[`q${qIndex + 1}`]}
                         </div>
                       )}
                     </div>

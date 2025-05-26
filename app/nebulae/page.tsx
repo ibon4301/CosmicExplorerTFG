@@ -262,7 +262,7 @@ export default function NebulaePage() {
       <Header />
 
       <main className="flex-1 pt-16">
-        {/* Hero Section estilo black hole */}
+        {/* Hero Section */}
         <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-black to-zinc-900 py-0 md:py-0 overflow-hidden">
           {/* Video de fondo */}
           <video
@@ -270,7 +270,7 @@ export default function NebulaePage() {
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover z-0 opacity-60"
+            className="absolute inset-0 w-full h-full object-fill object-center z-0 opacity-60 scale-150"
           >
             <source src="/videos/chaos-nebula.mp4" type="video/mp4" />
             Tu navegador no soporta el video.

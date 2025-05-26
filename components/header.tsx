@@ -14,12 +14,16 @@ export default function Header() {
   const [expandedSection, setExpandedSection] = useState<string | null>(null)
   const { t } = useLanguage()
   const headerRef = useRef<HTMLElement>(null)
-  const { user, logout } = useAuth()
+  const { user, logout, avatarSeed } = useAuth()
   const [showAuthModal, setShowAuthModal] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const userMenuRef = useRef<HTMLDivElement>(null)
   const [authModalMode, setAuthModalMode] = useState<'login' | 'register'>("login")
-  const [avatarSeed, setAvatarSeed] = useState<string | null>(null)
+  const [currentPath, setCurrentPath] = useState("")
+
+  useEffect(() => {
+    setCurrentPath(window.location.pathname)
+  }, [])
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -66,30 +70,30 @@ export default function Header() {
   const navLinks = [
     { 
       href: "/solar-system", 
-      label: t("header.solarSystem") 
+      label: "header.solarSystem"
     },
     {
       href: "/planets",
-      label: t("header.planets"),
+      label: "header.planets",
       subItems: [
-        { href: "/planets/mercury", label: t("planets.mercury") },
-        { href: "/planets/venus", label: t("planets.venus") },
-        { href: "/planets/earth", label: t("planets.earth") },
-        { href: "/planets/mars", label: t("planets.mars") },
-        { href: "/planets/jupiter", label: t("planets.jupiter") },
-        { href: "/planets/saturn", label: t("planets.saturn") },
-        { href: "/planets/uranus", label: t("planets.uranus") },
-        { href: "/planets/neptune", label: t("planets.neptune") },
+        { href: "/planets/mercury", label: "planets.mercury" },
+        { href: "/planets/venus", label: "planets.venus" },
+        { href: "/planets/earth", label: "planets.earth" },
+        { href: "/planets/mars", label: "planets.mars" },
+        { href: "/planets/jupiter", label: "planets.jupiter" },
+        { href: "/planets/saturn", label: "planets.saturn" },
+        { href: "/planets/uranus", label: "planets.uranus" },
+        { href: "/planets/neptune", label: "planets.neptune" },
       ],
     },
-    { href: "/galaxies", label: t("header.galaxies") },
-    { href: "/black-holes", label: t("header.blackHoles") },
-    { href: "/nebulae", label: t("header.nebulae") },
-    { href: "/exoplanets", label: t("header.exoplanets") },
-    { href: "/technology", label: t("header.technology") },
-    { href: "/missions", label: t("header.missions") },
-    { href: "/ebooks", label: "E-books" },
-    { href: "/quiz", label: t("header.quiz") }
+    { href: "/galaxies", label: "header.galaxies" },
+    { href: "/black-holes", label: "header.blackHoles" },
+    { href: "/nebulae", label: "header.nebulae" },
+    { href: "/exoplanets", label: "header.exoplanets" },
+    { href: "/technology", label: "header.technology" },
+    { href: "/missions", label: "header.missions" },
+    { href: "/ebooks", label: "header.ebooks" },
+    { href: "/quiz", label: "header.quiz" }
   ]
 
   return (
@@ -132,13 +136,21 @@ export default function Header() {
             <button
               className="flex items-center justify-center rounded-full p-2 hover:bg-zinc-800 transition-colors"
               onClick={() => setUserMenuOpen((v) => !v)}
-              aria-label="Menú de usuario"
+              aria-label={t("account.profile.title")}
             >
               {user ? (
                 user.photoURL ? (
-                  <img src={user.photoURL} alt="Avatar" className="h-7 w-7 rounded-full object-cover" />
+                  <img 
+                    src={user.photoURL} 
+                    alt={user.displayName || "Avatar"} 
+                    className="h-7 w-7 rounded-full object-cover"
+                  />
                 ) : avatarSeed ? (
-                  <img src={`https://api.dicebear.com/7.x/bottts/svg?seed=${avatarSeed}`} alt="Avatar" className="h-7 w-7 rounded-full object-cover" />
+                  <img 
+                    src={`https://api.dicebear.com/7.x/bottts/svg?seed=${avatarSeed}`} 
+                    alt={user.displayName || "Avatar"} 
+                    className="h-7 w-7 rounded-full object-cover"
+                  />
                 ) : (
                   <UserCircle className="h-7 w-7 text-blue-400" />
                 )
@@ -173,14 +185,15 @@ export default function Header() {
                       className="w-full flex items-center gap-2 px-4 py-2 text-sm hover:bg-zinc-800 text-white"
                       onClick={() => setUserMenuOpen(false)}
                     >
-                      <User className="w-4 h-4" /> {t("account.profile")}
+                      <User className="w-4 h-4" /> {t("account.profile.title")}
                     </Link>
-                    <button className="w-full flex items-center gap-2 px-4 py-2 text-sm hover:bg-zinc-800 text-white">
-                      <Settings className="w-4 h-4" /> {t("account.settings")}
-                    </button>
-                    <button className="w-full flex items-center gap-2 px-4 py-2 text-sm hover:bg-zinc-800 text-white">
+                    <Link
+                      href="/my-reviews"
+                      className="w-full flex items-center gap-2 px-4 py-2 text-sm hover:bg-zinc-800 text-white"
+                      onClick={() => setUserMenuOpen(false)}
+                    >
                       <Star className="w-4 h-4" /> {t("account.myReviews")}
-                    </button>
+                    </Link>
                     <button
                       className="w-full flex items-center gap-2 px-4 py-2 text-sm hover:bg-zinc-800 text-red-400"
                       onClick={() => { logout(); setUserMenuOpen(false); }}
@@ -191,14 +204,14 @@ export default function Header() {
                 )}
               </div>
             )}
-            <AuthModal open={showAuthModal} onClose={() => setShowAuthModal(false)} initialMode={authModalMode} />
           </div>
           <button className="flex items-center justify-center rounded-md p-2" onClick={toggleMenu}>
             <Menu className="h-6 w-6" />
-            <span className="sr-only">Toggle menu</span>
+            <span className="sr-only">{t("header.toggleMenu")}</span>
           </button>
         </div>
       </div>
+      <AuthModal open={showAuthModal} onClose={() => setShowAuthModal(false)} initialMode={authModalMode} />
 
       {isMenuOpen && (
         <motion.div
@@ -214,10 +227,10 @@ export default function Header() {
                   {link.subItems ? (
                     <>
                       <button
-                        className="flex items-center justify-between text-sm font-medium hover:text-blue-400 transition-colors"
+                        className="flex items-center justify-between text-sm font-medium hover:text-blue-400 transition-colors font-helvetica"
                         onClick={() => toggleSection(link.href)}
                       >
-                        <span>{link.label}</span>
+                        <span>{t(link.label)}</span>
                         {expandedSection === link.href ? (
                           <ChevronDown className="h-4 w-4 ml-1" />
                         ) : (
@@ -230,10 +243,10 @@ export default function Header() {
                             <Link
                               key={subItem.href}
                               href={subItem.href}
-                              className="text-xs font-medium text-zinc-400 hover:text-blue-400 transition-colors"
+                              className="text-xs font-medium text-zinc-400 hover:text-blue-400 transition-colors font-helvetica"
                               onClick={() => setIsMenuOpen(false)}
                             >
-                              {subItem.label}
+                              {t(subItem.label)}
                             </Link>
                           ))}
                         </div>
@@ -242,10 +255,10 @@ export default function Header() {
                   ) : (
                     <Link
                       href={link.href}
-                      className="text-sm font-medium hover:text-blue-400 transition-colors"
+                      className="text-sm font-medium hover:text-blue-400 transition-colors font-helvetica"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      {link.label}
+                      {t(link.label)}
                     </Link>
                   )}
                 </div>

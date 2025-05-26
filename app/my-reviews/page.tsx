@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getUserComments, deleteEbookComment, editEbookComment, EbookComment } from "@/lib/firebase/comments";
-import MainHeader from "@/components/main-header";
+import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { useLanguage } from "@/contexts/language-context";
 import { Star, UserCircle } from "lucide-react";
@@ -49,7 +49,7 @@ function StarRatingEdit({ value, onChange, max = 5 }: { value: number, onChange:
         type="button"
         onClick={() => onChange(i)}
         className={`text-2xl ${i <= value ? "text-yellow-400" : "text-zinc-600"}`}
-        aria-label={`Puntuación ${i}`}
+        aria-label={`Valoración ${i}`}
       >
         ★
       </button>
@@ -59,8 +59,8 @@ function StarRatingEdit({ value, onChange, max = 5 }: { value: number, onChange:
 }
 
 export default function MyReviewsPage() {
-  const { user } = useAuth();
-  const { t } = useLanguage();
+  const { user, avatarSeed } = useAuth();
+  const { t, language } = useLanguage();
   const router = useRouter();
   const [authChecked, setAuthChecked] = useState(false);
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -69,6 +69,7 @@ export default function MyReviewsPage() {
   const [editData, setEditData] = useState({ title: "", comment: "", rating: 0 });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const avatarAlt = (user?.displayName || user?.email || 'avatar') as string;
 
   useEffect(() => {
     if (user === null) {
@@ -81,8 +82,17 @@ export default function MyReviewsPage() {
   useEffect(() => {
     if (!user) return;
     setLoading(true);
-    getUserComments(user.email || "")
-      .then(setReviews)
+    console.log('DEBUG email usuario:', user.email);
+    if (typeof user.email !== 'string' || !user.email) {
+      setError('No se ha encontrado el email del usuario.');
+      setLoading(false);
+      return;
+    }
+    getUserComments(user.email)
+      .then(res => {
+        console.log('DEBUG reseñas obtenidas:', res);
+        setReviews(res)
+      })
       .catch(() => setReviews([]))
       .finally(() => setLoading(false));
   }, [user]);
@@ -112,7 +122,8 @@ export default function MyReviewsPage() {
       setSuccess(t("myReviews.success"));
       setError("");
     } catch (err) {
-      setError(t("profile.indexError"));
+      console.error('Error al editar reseña:', err);
+      setError((err as Error)?.message || (language === 'es' ? 'No se pudo guardar la reseña.' : 'Could not save the review.'));
     }
   };
 
@@ -130,14 +141,14 @@ export default function MyReviewsPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-black via-zinc-900 to-blue-950">
-      <MainHeader />
+      <Header />
       <main className="flex-1 flex flex-col items-center py-12 px-4">
         <div className="w-full max-w-3xl glass rounded-2xl shadow-2xl p-8 flex flex-col gap-8 border border-blue-900/40 animate-fade-in">
           <h1 className="text-3xl font-bold text-blue-400 font-orbitron mb-4">{t("account.myReviews")}</h1>
           {loading ? (
             <div className="text-zinc-400">{t("loader.loadingWait")}</div>
           ) : Object.keys(grouped).length === 0 ? (
-            <div className="text-zinc-400">{t("myReviews.noReviews")}</div>
+            <div className="text-zinc-400">{language === 'es' ? 'No tienes reseñas todavía.' : 'You have no reviews yet.'}</div>
           ) : (
             Object.entries(grouped).map(([ebook, reviews]) => (
               <section key={ebook} className="mb-8">
@@ -147,38 +158,38 @@ export default function MyReviewsPage() {
                     <div key={review.id} className="bg-zinc-900/70 rounded-lg p-4 border border-blue-900/30">
                       {editingId === review.id ? (
                         <div className="flex flex-col gap-2">
-                          <label className="text-sm text-blue-200 font-semibold" htmlFor="edit-title">{t("myReviews.editReview")}</label>
+                          <label className="text-sm text-blue-200 font-semibold" htmlFor="edit-title">{language === 'es' ? 'Editar reseña' : 'Edit review'}</label>
                           <Input
                             id="edit-title"
                             value={editData.title}
                             onChange={e => setEditData({ ...editData, title: e.target.value })}
-                            placeholder={t("myReviews.title")}
+                            placeholder={language === 'es' ? 'Título' : 'Title'}
                           />
-                          <label className="text-sm text-blue-200 font-semibold" htmlFor="edit-comment">{t("myReviews.comment")}</label>
+                          <label className="text-sm text-blue-200 font-semibold" htmlFor="edit-comment">{language === 'es' ? 'Comentario' : 'Comment'}</label>
                           <Input
                             id="edit-comment"
                             value={editData.comment}
                             onChange={e => setEditData({ ...editData, comment: e.target.value })}
-                            placeholder={t("myReviews.comment")}
+                            placeholder={language === 'es' ? 'Comentario' : 'Comment'}
                           />
-                          <label className="text-sm font-medium text-zinc-300" htmlFor="edit-rating">{t("myReviews.rating")}</label>
+                          <label className="text-sm font-medium text-zinc-300" htmlFor="edit-rating">{language === 'es' ? 'Valoración' : 'Rating'}</label>
                           <div className="flex items-center gap-2">
                             <StarRatingEdit value={editData.rating} onChange={r => setEditData({ ...editData, rating: r })} />
                             <span className="ml-2 text-zinc-400">{editData.rating} / 5</span>
                           </div>
                           <div className="flex gap-2 mt-2">
-                            <Button onClick={handleSaveEdit} variant="default">{t("myReviews.save")}</Button>
-                            <Button onClick={handleCancelEdit} variant="secondary">{t("myReviews.cancel")}</Button>
+                            <Button onClick={handleSaveEdit} variant="default">{language === 'es' ? 'Guardar' : 'Save'}</Button>
+                            <Button onClick={handleCancelEdit} variant="secondary">{language === 'es' ? 'Cancelar' : 'Cancel'}</Button>
                           </div>
                         </div>
                       ) : (
                         <div className="flex flex-col gap-1">
                           <div className="flex items-center gap-2">
-                            {/* Avatar/foto */}
-                            {review.photoURL ? (
-                              <img src={review.photoURL} alt="avatar" className="w-8 h-8 rounded-full object-cover border border-zinc-700" />
-                            ) : review.avatarSeed ? (
-                              <img src={`https://api.dicebear.com/7.x/bottts/svg?seed=${review.avatarSeed}`} alt="avatar" className="w-8 h-8 rounded-full object-cover border border-zinc-700" />
+                            {/* Avatar actual del usuario autenticado */}
+                            {user?.photoURL ? (
+                              <img src={user.photoURL} alt={avatarAlt} className="w-8 h-8 rounded-full object-cover border border-zinc-700" />
+                            ) : avatarSeed ? (
+                              <img src={`https://api.dicebear.com/7.x/bottts/svg?seed=${avatarSeed}`} alt={avatarAlt} className="w-8 h-8 rounded-full object-cover border border-zinc-700" />
                             ) : (
                               <UserCircle className="w-8 h-8 text-zinc-500" />
                             )}
@@ -187,8 +198,8 @@ export default function MyReviewsPage() {
                           </div>
                           <span className="text-zinc-300">{review.comment}</span>
                           <div className="flex gap-2 mt-2">
-                            <Button onClick={() => handleEdit(review)} variant="secondary" size="sm">{t("myReviews.edit")}</Button>
-                            <Button onClick={() => handleDelete(review.id)} variant="destructive" size="sm">{t("myReviews.delete")}</Button>
+                            <Button onClick={() => handleEdit(review)} variant="secondary" size="sm">{language === 'es' ? 'Editar' : 'Edit'}</Button>
+                            <Button onClick={() => handleDelete(review.id)} variant="destructive" size="sm">{language === 'es' ? 'Eliminar' : 'Delete'}</Button>
                           </div>
                         </div>
                       )}
@@ -198,7 +209,7 @@ export default function MyReviewsPage() {
               </section>
             ))
           )}
-          {success && <div className="text-green-400 mt-2">{t("myReviews.success")}</div>}
+          {success && <div className="text-green-400 mt-2">{language === 'es' ? '¡Reseña actualizada!' : 'Review updated!'}</div>}
           {error && <div className="text-red-400 mt-2">{error}</div>}
         </div>
       </main>

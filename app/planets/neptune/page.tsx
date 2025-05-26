@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
 import PlanetComparisonChart from "@/components/planet-comparison-chart"
 import PlanetCompositionChart from "@/components/planet-composition-chart"
-import MainHeader from "@/components/main-header"
+import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { ResponsiveBar } from "@nivo/bar"
 import NeptuneModel from "@/components/NeptuneModel"
@@ -90,7 +90,7 @@ export default function NeptunePage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <MainHeader />
+      <Header />
       <main className="container mx-auto px-4 pt-24 pb-16">
         <div className="mb-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-blue-400 font-orbitron">

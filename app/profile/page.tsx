@@ -5,7 +5,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/language-context";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import MainHeader from "@/components/main-header";
+import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { useRouter } from "next/navigation";
 import { updateProfile, updateEmail, reauthenticateWithCredential, EmailAuthProvider, updatePassword } from "firebase/auth";
@@ -66,21 +66,21 @@ export default function ProfilePage() {
       // Actualizar displayName
       if (pendingField === "name") {
         await updateProfile(user, { displayName: name });
-        setSuccess(t("profile.profileUpdated"));
+        setSuccess(t("account.profile.profileUpdated"));
         setEditName(false);
       }
       // Actualizar email
       if (pendingField === "email") {
         await updateEmail(user, email);
-        setSuccess(t("profile.profileUpdated"));
+        setSuccess(t("account.profile.profileUpdated"));
         setEditEmail(false);
       }
       setPassword("");
     } catch (e: any) {
       if (e.code === "auth/invalid-credential") {
-        setError(t("profile.incorrectPassword"));
+        setError(t("account.profile.incorrectPassword"));
       } else if (e.code === "auth/email-already-in-use" || e.code === "auth/operation-not-allowed") {
-        setError(t("profile.emailInUse"));
+        setError(t("account.profile.emailInUse"));
       } else {
         setError(e.message);
       }
@@ -94,11 +94,11 @@ export default function ProfilePage() {
     setPasswordError("");
     if (!user) return;
     if (newPassword.length < 6) {
-      setPasswordError(t("profile.passwordTooShort"));
+      setPasswordError(t("account.profile.passwordTooShort"));
       return;
     }
     if (newPassword !== confirmNewPassword) {
-      setPasswordError(t("profile.passwordsDontMatch"));
+      setPasswordError(t("account.profile.passwordsDontMatch"));
       return;
     }
     try {
@@ -109,10 +109,10 @@ export default function ProfilePage() {
       setNewPassword("");
       setConfirmNewPassword("");
       setShowChangePasswordDialog(false);
-      setSuccess(t("profile.passwordChanged"));
+      setSuccess(t("account.profile.passwordChanged"));
     } catch (e: any) {
       if (e.code === "auth/invalid-credential") {
-        setPasswordError(t("profile.incorrectPassword"));
+        setPasswordError(t("account.profile.incorrectPassword"));
       } else {
         setPasswordError(e.message);
       }
@@ -137,11 +137,11 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-black via-zinc-900 to-blue-950">
-      <MainHeader />
+      <Header />
       <main className="flex-1 flex flex-col items-center justify-center py-12 px-4">
         <div className="w-full max-w-md glass rounded-2xl shadow-2xl p-8 flex flex-col items-center gap-6 border border-blue-900/40 relative animate-fade-in">
           <h1 className="text-3xl font-bold mb-2 text-blue-400 font-orbitron drop-shadow-lg">
-            {t("profile.title")}
+            {t("account.profile.title")}
           </h1>
           <div className="relative flex flex-col items-center gap-2">
             {user && user.providerData.some(p => p.providerId === "google.com") ? (
@@ -162,11 +162,11 @@ export default function ProfilePage() {
                   />
                 </div>
                 <Button onClick={handleRandomAvatar} variant="secondary" size="sm" className="mt-2">
-                  {t("profile.randomAvatar") || "Elegir avatar al azar"}
+                  {t("account.profile.randomAvatar")}
                 </Button>
                 {showSaveAvatar && tempAvatarSeed && (
                   <Button onClick={handleSaveAvatar} variant="default" size="sm" className="mt-2">
-                    {t("profile.saveAvatar") || "Guardar avatar"}
+                    {t("account.profile.saveAvatar")}
                   </Button>
                 )}
               </>
@@ -174,43 +174,43 @@ export default function ProfilePage() {
           </div>
           <div className="w-full flex flex-col gap-6 mt-4">
             <div className="w-full">
-              <label className="block text-zinc-400 text-sm mb-1 font-semibold tracking-wide">{t("profile.username")}</label>
+              <label className="block text-zinc-400 text-sm mb-1 font-semibold tracking-wide">{t("account.profile.username")}</label>
               {editName ? (
                 <div className="flex flex-col sm:flex-row gap-2 items-center animate-fade-in">
                   <Input value={name} onChange={e => setName(e.target.value)} className="flex-1" />
                   <Button onClick={() => handleEdit("name") } variant="default">
-                    {t("profile.save")}
+                    {t("account.profile.save")}
                   </Button>
                   <Button onClick={() => setEditName(false)} variant="secondary">
-                    {t("profile.cancel")}
+                    {t("account.profile.cancel")}
                   </Button>
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
                   <span className="text-lg font-semibold text-white drop-shadow-sm">{name || email}</span>
                   <Button onClick={() => setEditName(true)} variant="secondary" size="sm">
-                    {t("profile.edit")}
+                    {t("account.profile.edit")}
                   </Button>
                 </div>
               )}
             </div>
             <div className="w-full">
-              <label className="block text-zinc-400 text-sm mb-1 font-semibold tracking-wide">{t("profile.email")}</label>
+              <label className="block text-zinc-400 text-sm mb-1 font-semibold tracking-wide">{t("account.profile.email")}</label>
               {editEmail ? (
                 <div className="flex flex-col sm:flex-row gap-2 items-center animate-fade-in">
                   <Input value={email} onChange={e => setEmail(e.target.value)} className="flex-1" />
                   <Button onClick={() => handleEdit("email") } variant="default">
-                    {t("profile.save")}
+                    {t("account.profile.save")}
                   </Button>
                   <Button onClick={() => setEditEmail(false)} variant="secondary">
-                    {t("profile.cancel")}
+                    {t("account.profile.cancel")}
                   </Button>
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
                   <span className="text-lg font-semibold text-white drop-shadow-sm">{email}</span>
                   <Button onClick={() => setEditEmail(true)} variant="secondary" size="sm">
-                    {t("profile.edit")}
+                    {t("account.profile.edit")}
                   </Button>
                 </div>
               )}
@@ -221,7 +221,7 @@ export default function ProfilePage() {
                 variant="outline" 
                 className="w-full flex items-center justify-center gap-2"
               >
-                {t("profile.changePassword")}
+                {t("account.profile.changePassword")}
               </Button>
             </div>
           </div>
@@ -242,20 +242,20 @@ export default function ProfilePage() {
       {showPasswordDialog && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
           <div className="bg-zinc-950 rounded-lg shadow-lg p-6 w-full max-w-md relative animate-fade-in">
-            <h2 className="text-blue-400 font-bold text-lg mb-4">{t("profile.confirmPassword")}</h2>
+            <h2 className="text-blue-400 font-bold text-lg mb-4">{t("account.profile.confirmPassword")}</h2>
             <Input
               type="password"
-              placeholder={t("profile.password")}
+              placeholder={t("account.profile.password")}
               value={password}
               onChange={e => setPassword(e.target.value)}
               className="mt-4"
             />
             <div className="flex gap-2 mt-4">
               <Button onClick={handleSave} variant="default">
-                {t("profile.confirm")}
+                {t("account.profile.confirm")}
               </Button>
               <Button onClick={() => setShowPasswordDialog(false)} variant="secondary">
-                {t("profile.cancel")}
+                {t("account.profile.cancel")}
               </Button>
             </div>
           </div>
@@ -265,24 +265,24 @@ export default function ProfilePage() {
       {showChangePasswordDialog && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
           <div className="bg-zinc-950 rounded-lg shadow-lg p-6 w-full max-w-md relative animate-fade-in">
-            <h2 className="text-blue-400 font-bold text-lg mb-4">{t("profile.changePassword")}</h2>
+            <h2 className="text-blue-400 font-bold text-lg mb-4">{t("account.profile.changePassword")}</h2>
             <Input
               type="password"
-              placeholder={t("profile.password")}
+              placeholder={t("account.profile.password")}
               value={password}
               onChange={e => setPassword(e.target.value)}
               className="mt-2"
             />
             <Input
               type="password"
-              placeholder={t("profile.newPassword")}
+              placeholder={t("account.profile.newPassword")}
               value={newPassword}
               onChange={e => setNewPassword(e.target.value)}
               className="mt-2"
             />
             <Input
               type="password"
-              placeholder={t("profile.confirmNewPassword")}
+              placeholder={t("account.profile.confirmNewPassword")}
               value={confirmNewPassword}
               onChange={e => setConfirmNewPassword(e.target.value)}
               className="mt-2"
@@ -294,10 +294,10 @@ export default function ProfilePage() {
             )}
             <div className="flex gap-2 mt-4">
               <Button onClick={handleChangePassword} variant="default">
-                {t("profile.confirm")}
+                {t("account.profile.confirm")}
               </Button>
               <Button onClick={() => { setShowChangePasswordDialog(false); setPasswordError(""); }} variant="secondary">
-                {t("profile.cancel")}
+                {t("account.profile.cancel")}
               </Button>
             </div>
           </div>

@@ -11,7 +11,8 @@
     "missions": "Misiones Espaciales",
     "quiz": "Cuestionario Espacial",
     "kids": "Niños",
-    "ebooks": "E-books"
+    "ebooks": "E-books",
+    "toggleMenu": "Alternar menú"
   },
   "home": {
     "hero": {
@@ -29,7 +30,15 @@
       "title": "Tecnología Espacial",
       "subtitle": "Explora los modelos 3D de las naves y tecnología que nos ha permitido explorar el cosmos.",
       "prev": "Anterior",
-      "next": "Siguiente"
+      "next": "Siguiente",
+      "models": {
+        "apollo11": "Módulo de Mando del Apolo 11",
+        "iss": "Estación Espacial Internacional",
+        "ingenuity": "Helicóptero Ingenuity",
+        "perseverance": "Rover Perseverance",
+        "shuttle": "Transbordador Espacial",
+        "cassini": "Sonda Cassini-Huygens"
+      }
     },
     "features": {
       "title": "Fenómenos Cósmicos",
@@ -374,31 +383,34 @@
     }
   },
   "account": {
+    "profile": "Perfil",
     "login": "Iniciar sesión",
     "register": "Registrarse",
+    "settings": "Configuración",
+    "myReviews": "Mis reseñas",
+    "logout": "Cerrar sesión",
     "profile": {
-      "title": "Mi perfil",
-      "username": "Nombre de usuario",
-      "email": "Correo electrónico",
+      "title": "Perfil de Usuario",
+      "username": "Nombre de Usuario",
+      "email": "Correo Electrónico",
       "edit": "Editar",
       "save": "Guardar",
       "cancel": "Cancelar",
-      "changePassword": "Cambiar contraseña",
-      "confirmPassword": "Confirma tu contraseña",
-      "password": "Contraseña actual",
-      "newPassword": "Nueva contraseña",
-      "confirmNewPassword": "Confirmar nueva contraseña",
+      "changePassword": "Cambiar Contraseña",
+      "confirmPassword": "Confirmar Contraseña",
+      "password": "Contraseña",
+      "newPassword": "Nueva Contraseña",
+      "confirmNewPassword": "Confirmar Nueva Contraseña",
       "profileUpdated": "Perfil actualizado correctamente",
       "incorrectPassword": "Contraseña incorrecta",
-      "emailInUse": "Ese correo ya está en uso",
+      "emailInUse": "El correo electrónico ya está en uso",
       "passwordTooShort": "La contraseña debe tener al menos 6 caracteres",
       "passwordsDontMatch": "Las contraseñas no coinciden",
       "passwordChanged": "Contraseña cambiada correctamente",
       "confirm": "Confirmar",
       "randomAvatar": "Elegir avatar al azar",
       "saveAvatar": "Guardar avatar"
-    },
-    "logout": "Cerrar sesión"
+    }
   },
   "plans": {
     "basic": "Básico",

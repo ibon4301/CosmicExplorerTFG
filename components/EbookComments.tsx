@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { addEbookComment, getEbookComments, EbookComment } from "@/lib/firebase/comments";
-import { Pencil, MessageCircle } from "lucide-react";
+import { Pencil, MessageCircle, UserCircle } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import AuthModal from "@/components/AuthModal";
 import { useLanguage } from "@/contexts/language-context";
+import { db } from "@/lib/firebase/firebaseConfig";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface EbookCommentsProps {
   ebookTitle: string;
@@ -53,8 +56,9 @@ export default function EbookComments({ ebookTitle, ebookImage, ebookDescription
   const [showModal, setShowModal] = useState(false);
   const [showTooltip, setShowTooltip] = useState<string | false>(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const { user } = useAuth();
+  const { user, avatarSeed } = useAuth();
   const { language } = useLanguage();
+  const [userAvatars, setUserAvatars] = useState<{ [email: string]: string | null }>({});
 
   useEffect(() => {
     fetchComments();
@@ -81,10 +85,13 @@ export default function EbookComments({ ebookTitle, ebookImage, ebookDescription
       await addEbookComment({
         ebookTitle,
         username: user?.displayName || user?.email || "Anónimo",
+        email: user?.email || null,
         comment: comment.trim(),
         rating,
         title: title.trim(),
-      } as any); // 'as any' para permitir el nuevo campo 'title'
+        photoURL: user?.photoURL || null,
+        avatarSeed: avatarSeed || null,
+      } as any);
       setComment("");
       setTitle("");
       setRating(0);
@@ -107,6 +114,28 @@ export default function EbookComments({ ebookTitle, ebookImage, ebookDescription
   const reviewText = language === "es"
     ? `${comments.length} valoraciones`
     : `${comments.length} review${comments.length === 1 ? "" : "s"}`;
+
+  // Buscar avatarSeed actual de un usuario por email
+  async function fetchAvatarSeed(email: string) {
+    if (!email) return;
+    if (userAvatars[email] !== undefined) return; // Ya está en caché
+    const q = query(collection(db, "users"), where("email", "==", email));
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      const data = querySnapshot.docs[0].data();
+      setUserAvatars(prev => ({ ...prev, [email]: data.avatarSeed || null }));
+    } else {
+      setUserAvatars(prev => ({ ...prev, [email]: null }));
+    }
+  }
+
+  // Al cargar comentarios, buscar avatarSeed de los usuarios que no tengan photoURL
+  useEffect(() => {
+    comments.forEach(c => {
+      if (!c.photoURL && c.email) fetchAvatarSeed(c.email);
+    });
+    // eslint-disable-next-line
+  }, [comments]);
 
   return (
     <div className="mt-4">
@@ -185,7 +214,18 @@ export default function EbookComments({ ebookTitle, ebookImage, ebookDescription
               {comments.length === 0 && <p className="text-zinc-400 text-center">{language === "es" ? "Aún no hay comentarios." : "No comments yet."}</p>}
               {comments.map((c, i) => (
                 <div key={i} className="mb-4 border-b border-zinc-800 pb-2">
-                  <div className="flex items-center mb-1">
+                  <div className="flex items-center mb-1 gap-2">
+                    {/* Avatar del usuario */}
+                    <Avatar className="h-8 w-8 border border-zinc-700 bg-zinc-800">
+                      {c.photoURL ? (
+                        <AvatarImage src={c.photoURL} alt={c.username} />
+                      ) : (typeof c.email === "string" && userAvatars[c.email]) ? (
+                        <AvatarImage src={`https://api.dicebear.com/7.x/bottts/svg?seed=${userAvatars[c.email]}`} alt={c.username} />
+                      ) : null}
+                      <AvatarFallback>
+                        <UserCircle className="w-5 h-5 text-zinc-400" />
+                      </AvatarFallback>
+                    </Avatar>
                     <span className="font-semibold text-blue-200 mr-2">{c.username}</span>
                     <span className="text-yellow-400 text-lg">{"★".repeat(c.rating)}</span>
                     <span className="text-zinc-500 ml-2 text-xs">
@@ -219,6 +259,23 @@ export default function EbookComments({ ebookTitle, ebookImage, ebookDescription
               />
               <h4 className="font-bold text-lg text-blue-300 mb-1 text-center">{ebookTitle}</h4>
               <p className="text-zinc-400 text-sm text-center mb-2">{ebookDescription}</p>
+              {/* Avatar, nombre y fecha igual que en los comentarios */}
+              {console.log('DEBUG avatarSeed:', avatarSeed, 'user:', user)}
+              <div className="flex items-center mb-2 gap-2">
+                <Avatar className="h-8 w-8 border border-zinc-700 bg-zinc-800">
+                  {user?.photoURL ? (
+                    <AvatarImage src={user.photoURL} alt={user.displayName || user.email || "avatar"} />
+                  ) : avatarSeed ? (
+                    <AvatarImage src={`https://api.dicebear.com/7.x/bottts/svg?seed=${avatarSeed}`} alt={user?.displayName || user?.email || "avatar"} />
+                  ) : (
+                    <AvatarFallback>
+                      <UserCircle className="w-5 h-5 text-zinc-400" />
+                    </AvatarFallback>
+                  )}
+                </Avatar>
+                <span className="font-semibold text-blue-200 mr-2">{user?.displayName || user?.email || "Anónimo"}</span>
+                <span className="text-zinc-500 ml-2 text-xs">{new Date().toLocaleString()}</span>
+              </div>
             </div>
             <form onSubmit={handleSubmit}>
               <input
@@ -259,24 +316,7 @@ export default function EbookComments({ ebookTitle, ebookImage, ebookDescription
               </button>
               {error && <div className="text-red-500 mt-2">{error}</div>}
             </form>
-            {/* Lista de comentarios dentro del modal */}
-            <div className="mt-6">
-              <h5 className="text-blue-200 font-semibold mb-2 text-center">{language === "es" ? "Reseñas de otros usuarios" : "Other users' reviews"}</h5>
-              {comments.length === 0 && <p className="text-zinc-400 text-center">{language === "es" ? "Aún no hay comentarios." : "No comments yet."}</p>}
-              {comments.map((c, i) => (
-                <div key={i} className="mb-4 border-b border-zinc-800 pb-2">
-                  <div className="flex items-center mb-1">
-                    <span className="font-semibold text-blue-200 mr-2">{c.username}</span>
-                    <span className="text-yellow-400 text-lg">{"★".repeat(c.rating)}</span>
-                    <span className="text-zinc-500 ml-2 text-xs">
-                      {c.createdAt.toDate().toLocaleString()}
-                    </span>
-                  </div>
-                  <div className="font-bold text-white mb-1">{(c as any).title}</div>
-                  <div className="text-zinc-200">{c.comment}</div>
-                </div>
-              ))}
-            </div>
+            {/* Ya no se muestra la lista de comentarios aquí */}
           </div>
         </div>
       )}

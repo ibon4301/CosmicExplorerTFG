@@ -6,7 +6,7 @@ import { ArrowRight, ChevronLeft, ChevronRight, RefreshCcw, Rocket } from "lucid
 import SpaceHero from "@/components/space-hero"
 import FeatureCard from "@/components/feature-card"
 import PlanetExplorer from "@/components/planet-explorer"
-import MainHeader from "@/components/main-header"
+import Header from "@/components/header"
 import { useLanguage } from "@/contexts/language-context"
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
@@ -40,14 +40,12 @@ export default function HomePage() {
 
   // ----- MODIFICADO: Array de objetos para las naves -----
   const spaceshipModels = [
-    { name: "Module Command of Apollo 11", url: "/models/apollo11.glb" },
-    { name: "ISS", url: "/models/iss.glb" },
-    { name: "Ingenuity Helicopter", url: "/models/Ingenuity.glb" },
-    { name: "Perseverance", url: "/models/Perseverance.glb" },
-    { name: "Shuttle", url: "/models/shuttle.glb" },
-    { name: "Cassini Huygens", url: "/models/cassini.glb" },
-    
-   
+    { name: "home.spaceshipExplorer.models.apollo11", url: "/models/apollo11.glb" },
+    { name: "home.spaceshipExplorer.models.iss", url: "/models/iss.glb" },
+    { name: "home.spaceshipExplorer.models.ingenuity", url: "/models/Ingenuity.glb" },
+    { name: "home.spaceshipExplorer.models.perseverance", url: "/models/Perseverance.glb" },
+    { name: "home.spaceshipExplorer.models.shuttle", url: "/models/shuttle.glb" },
+    { name: "home.spaceshipExplorer.models.cassini", url: "/models/cassini.glb" },
   ]
 
   const [currentModelIndex, setCurrentModelIndex] = useState(0)
@@ -85,7 +83,7 @@ export default function HomePage() {
       className={`flex min-h-screen flex-col bg-black text-white transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
     >
       {/* Header */}
-      <MainHeader />
+      <Header />
 
       {/* Hero Section with 3D Space Scene */}
       <section className="relative h-screen w-full pt-16">
@@ -153,7 +151,7 @@ export default function HomePage() {
                 {t("home.spaceshipExplorer.title")}
               </h2>
               <p className="mx-auto max-w-[700px] text-zinc-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                {currentModel ? currentModel.name : t("home.spaceshipExplorer.subtitle")}
+                {currentModel ? t(currentModel.name) : t("home.spaceshipExplorer.subtitle")}
               </p>
             </div>
           </motion.div>

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { CheckCircle } from 'lucide-react'
-import MainHeader from '@/components/main-header'
+import Header from '@/components/header'
 
 export default function SuccessPage() {
   const [loading, setLoading] = useState(true)
@@ -23,7 +23,7 @@ export default function SuccessPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white">
-        <MainHeader />
+        <Header />
         <div className="pt-16 min-h-screen flex flex-col items-center justify-center">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-400"></div>
           <p className="mt-4 text-zinc-400">Verificando tu pago...</p>
@@ -34,7 +34,7 @@ export default function SuccessPage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <MainHeader />
+      <Header />
       <div className="pt-16 min-h-screen flex flex-col items-center justify-center p-4">
         <div className="max-w-md w-full bg-zinc-950 rounded-2xl shadow-2xl p-8 text-center">
           <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-6" />

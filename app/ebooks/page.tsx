@@ -142,7 +142,7 @@ export default function EbooksPage() {
                           <EbookComments 
                             ebookTitle={book.title} 
                             ebookImage={book.image} 
-                            ebookDescription={language === "es" ? `Descarga el PDF de ${book.title}` : `Download the PDF of ${book.title}`} 
+                            ebookDescription={book.description} 
                             onShowComments={() => setCommentsModal({ open: true, ebook: book })}
                           />
                         </div>
@@ -158,7 +158,6 @@ export default function EbooksPage() {
 
       <Footer />
 
-      {/* Modal de solo comentarios para la card */}
       {commentsModal.open && commentsModal.ebook && (
         <EbookCommentsModalOnly
           ebookTitle={commentsModal.ebook.title}

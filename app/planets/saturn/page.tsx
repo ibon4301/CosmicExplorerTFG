@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
 import PlanetComparisonChart from "@/components/planet-comparison-chart"
 import PlanetCompositionChart from "@/components/planet-composition-chart"
-import MainHeader from "@/components/main-header"
+import Header from "@/components/header"
 import Footer from "@/components/footer"
 import dynamic from "next/dynamic"
 import SaturnModel from "@/components/SaturnModel"
@@ -117,7 +117,7 @@ export default function SaturnPage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <MainHeader />
+      <Header />
 
       <main className="container mx-auto px-4 pt-24 pb-16">
         <div className="mb-8 text-center">

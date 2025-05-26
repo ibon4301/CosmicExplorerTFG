@@ -18,7 +18,7 @@ const translations = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState("en")
+  const [language, setLanguage] = useState<string>(typeof window !== 'undefined' ? localStorage.getItem('language') || 'es' : 'es')
   const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
