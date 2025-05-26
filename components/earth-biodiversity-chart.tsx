@@ -104,6 +104,33 @@ export default function EarthBiodiversityChart() {
                 },
               },
             }}
+            legends={[
+              {
+                anchor: "top-left",
+                direction: "column",
+                translateX: -40,
+                translateY: -40,
+                itemWidth: 80,
+                itemHeight: 20,
+                itemTextColor: "#e2e8f0",
+                symbolSize: 12,
+                symbolShape: "circle",
+                effects: [
+                  {
+                    on: "hover",
+                    style: {
+                      itemTextColor: "#fff",
+                    },
+                  },
+                ],
+              },
+            ]}
+            tooltip={({ id, value }) => (
+              <div style={{ background: '#18181b', color: 'white', padding: 12, borderRadius: 8, border: '1px solid #334155', fontWeight: 500 }}>
+                <div>{language === 'es' ? 'Grupo' : 'Group'}: <b>{id}</b></div>
+                <div>{language === 'es' ? 'Porcentaje estimado' : 'Estimated percentage'}: <b>{value}%</b></div>
+              </div>
+            )}
           />
         </div>
         <p className="text-sm text-zinc-400 mt-4">

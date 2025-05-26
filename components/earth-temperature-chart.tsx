@@ -78,6 +78,12 @@ export default function EarthTemperatureChart() {
               modifiers: [["darker", 3]],
             }}
             legends={[]}
+            tooltip={({ id, value, indexValue }) => (
+              <div style={{ background: 'white', color: 'black', padding: 12, borderRadius: 8, border: '1px solid #ccc', fontWeight: 500 }}>
+                <div>{language === 'es' ? 'Ubicación' : 'Location'}: <b>{indexValue}</b></div>
+                <div>{language === 'es' ? 'Temperatura' : 'Temperature'}: <b>{value}°C</b></div>
+              </div>
+            )}
             theme={{
               text: {
                 fill: "#94a3b8",

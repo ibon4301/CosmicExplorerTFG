@@ -54,12 +54,12 @@ export default function EarthTimelineChart() {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="h-[300px]">
+        <div className="h-[300px] max-w-[500px] mx-auto">
           <ResponsiveBar
             data={data}
             keys={["tiempo"]}
             indexBy="era"
-            margin={{ top: 10, right: 20, bottom: 50, left: 60 }}
+            margin={{ top: 10, right: 20, bottom: 50, left: 100 }}
             padding={0.3}
             layout="horizontal"
             valueScale={{ type: "linear" }}
@@ -79,6 +79,9 @@ export default function EarthTimelineChart() {
               tickSize: 5,
               tickPadding: 5,
               tickRotation: 0,
+              legend: "",
+              legendPosition: "middle",
+              legendOffset: -60,
             }}
             labelSkipWidth={12}
             labelSkipHeight={12}
@@ -86,17 +89,6 @@ export default function EarthTimelineChart() {
               from: "color",
               modifiers: [["darker", 3]],
             }}
-            tooltip={({ data }) => (
-              <div className="bg-zinc-800 p-2 rounded-md border border-zinc-700 shadow-lg">
-                <p className="font-medium text-white">{data.era}</p>
-                <p className="text-sm text-zinc-300">{data.descripcion}</p>
-                <p className="text-xs text-zinc-400">
-                  {language === "es" 
-                    ? `${data.tiempo} millones de años` 
-                    : `${data.tiempo} million years`}
-                </p>
-              </div>
-            )}
             theme={{
               text: {
                 fill: "#94a3b8",
@@ -124,6 +116,16 @@ export default function EarthTimelineChart() {
             }}
             role="application"
             ariaLabel={language === "es" ? "Historia geológica de la Tierra" : "Earth geological history"}
+            legends={[]}
+            tooltip={({ data }) => (
+              <div style={{ background: '#18181b', color: 'white', padding: 12, borderRadius: 8, border: '1px solid #334155', fontWeight: 500 }}>
+                <div><b>{data.era}</b></div>
+                <div>{data.descripcion}</div>
+                <div style={{ fontSize: '0.9em', color: '#a3a3a3' }}>
+                  {language === 'es' ? 'Duración:' : 'Duration:'} {language === 'es' ? `${data.tiempo} millones de años` : `${data.tiempo} million years`}
+                </div>
+              </div>
+            )}
           />
         </div>
         <p className="text-sm text-zinc-400 mt-4">
