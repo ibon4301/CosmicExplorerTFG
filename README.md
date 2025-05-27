@@ -13,12 +13,15 @@ Una aplicación web interactiva para explorar el cosmos, desarrollada con Next.j
 
 ## Tecnologías utilizadas
 
+- React
 - Next.js 14
 - TypeScript
 - Tailwind CSS
 - Firebase (Autenticación , Base de Datos, Sistema de comentarios y Valoraciones)
 - Framer Motion
 - Lucide Icons
+- Radix UI
+- Firestore
 
 ## Instalación
 
@@ -29,9 +32,8 @@ git clone https://github.com/tu-usuario/cosmic-explorer.git
 
 2. Instala las dependencias:
 ```bash
-npm install
-# o
-yarn install 
+
+yarn install && yarn add @nivo/pie @nivo/radar @nivo/bar stripe
 ```
 
 3. Configura las variables de entorno:
@@ -43,12 +45,11 @@ NEXT_PUBLIC_FIREBASE_PROJECT_ID=tu_project_id
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=tu_storage_bucket
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=tu_messaging_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=tu_app_id
+STRIPE_SECRET_KEY=tu_sk_test
 ```
 
 4. Inicia el servidor de desarrollo:
 ```bash
-npm run dev
-# o
 yarn dev
 ```
 
@@ -66,4 +67,4 @@ cosmic-explorer/
 
 ## Licencia
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles. (IBÓN BALEA MÉNDEZ)
