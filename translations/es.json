@@ -412,7 +412,9 @@
       "confirm": "Confirmar",
       "randomAvatar": "Elegir avatar al azar",
       "saveAvatar": "Guardar avatar",
-      "verificationEmailSent": "Se ha enviado un email de verificación a tu nueva dirección de correo"
+      "verificationEmailSent": "Se ha enviado un email de verificación a tu nueva dirección de correo",
+      "usernameRequired": "El nombre de usuario es obligatorio.",
+      "permissionDenied": "No tienes permisos para actualizar el perfil."
     }
   },
   "plans": {

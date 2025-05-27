@@ -29,7 +29,14 @@ const spaceFont = localFont({
 export const metadata = {
   title: "Cosmic Explorer - Interactive Space Education",
   description: "Explore the universe with interactive 3D models, educational content, and space quizzes.",
-    generator: 'v0.dev'
+  generator: 'v0.dev',
+  icons: {
+    icon: [
+      { url: '/images/icon/favicon.ico' },
+      { url: '/images/icon/favicon.png', type: 'image/png' },
+    ],
+    apple: { url: '/images/icon/favicon.png' },
+  }
 }
 
 export default function RootLayout({
@@ -39,6 +46,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="shortcut icon" type="image/png" href="/images/icon/favicon.png" />
+        <link rel="icon" type="image/png" href="/images/icon/favicon.png" />
+      </head>
       <body className={`${inter.className} ${spaceFont.variable} bg-black text-white`}>
         <ThemeProvider attribute="class" defaultTheme="dark">
           <AuthProvider>

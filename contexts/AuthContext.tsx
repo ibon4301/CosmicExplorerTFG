@@ -70,7 +70,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const loginWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    // Guardar/actualizar usuario en Firestore
+    await setDoc(
+      doc(db, "users", user.uid),
+      {
+        displayName: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL || null,
+      },
+      { merge: true }
+    );
   };
 
   return (

@@ -38,6 +38,10 @@ export default function ProfilePage() {
 
   const handleUpdateProfile = async () => {
     if (!user) return;
+    if (!displayName.trim()) {
+      setError(t("account.profile.usernameRequired") || "El nombre de usuario es obligatorio.");
+      return;
+    }
     try {
       await updateProfile(user, { displayName });
       const userRef = doc(db, "users", user.uid);
@@ -45,8 +49,12 @@ export default function ProfilePage() {
       setSuccess(t("account.profile.profileUpdated"));
       setError("");
       setIsEditing(false);
-    } catch (err) {
-      setError(t("account.profile.error"));
+    } catch (err: any) {
+      let msg = err.message || t("account.profile.error");
+      if (err.code === "permission-denied") {
+        msg = t("account.profile.permissionDenied") || "No tienes permisos para actualizar el perfil.";
+      }
+      setError(msg);
     }
   };
 

@@ -412,7 +412,9 @@
       "confirm": "Confirm",
       "randomAvatar": "Choose random avatar",
       "saveAvatar": "Save avatar",
-      "verificationEmailSent": "A verification email has been sent to your new email address"
+      "verificationEmailSent": "A verification email has been sent to your new email address",
+      "usernameRequired": "Username is required.",
+      "permissionDenied": "You do not have permission to update the profile."
     }
   },
   "plans": {
