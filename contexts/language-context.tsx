@@ -4,9 +4,11 @@ import { createContext, useContext, useState, useEffect, type ReactNode } from "
 import enTranslations from "@/translations/en.json"
 import esTranslations from "@/translations/es.json"
 
+type Language = 'en' | 'es'
+
 type LanguageContextType = {
-  language: string
-  setLanguage: (lang: string) => void
+  language: Language
+  setLanguage: (lang: Language) => void
   t: (key: string) => string
 }
 
@@ -18,17 +20,17 @@ const translations = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<string>(typeof window !== 'undefined' ? localStorage.getItem('language') || 'es' : 'es')
+  const [language, setLanguage] = useState<Language>('en')
   const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
     setIsClient(true)
     // Obtener el idioma del localStorage o usar el predeterminado
-    const savedLanguage = localStorage.getItem("language") || "en"
+    const savedLanguage = (localStorage.getItem("language") || "en") as Language
     setLanguage(savedLanguage)
   }, [])
 
-  const changeLanguage = (lang: string) => {
+  const changeLanguage = (lang: Language) => {
     if (isClient) {
       localStorage.setItem("language", lang)
     }

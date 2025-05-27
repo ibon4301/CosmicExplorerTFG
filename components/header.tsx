@@ -14,12 +14,13 @@ export default function Header() {
   const [expandedSection, setExpandedSection] = useState<string | null>(null)
   const { t } = useLanguage()
   const headerRef = useRef<HTMLElement>(null)
-  const { user, logout, avatarSeed } = useAuth()
+  const { user, logout } = useAuth()
   const [showAuthModal, setShowAuthModal] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const userMenuRef = useRef<HTMLDivElement>(null)
   const [authModalMode, setAuthModalMode] = useState<'login' | 'register'>("login")
   const [currentPath, setCurrentPath] = useState("")
+  const isGoogleUser = user?.providerData.some(p => p.providerId === "google.com");
 
   useEffect(() => {
     setCurrentPath(window.location.pathname)
@@ -120,7 +121,7 @@ export default function Header() {
               </svg>
             </motion.div>
           </Link>
-          <Link href="/solar-system">
+          <Link href="/">
             <motion.span
               whileHover="hover"
               variants={textVariants}
@@ -138,25 +139,7 @@ export default function Header() {
               onClick={() => setUserMenuOpen((v) => !v)}
               aria-label={t("account.profile.title")}
             >
-              {user ? (
-                user.photoURL ? (
-                  <img 
-                    src={user.photoURL} 
-                    alt={user.displayName || "Avatar"} 
-                    className="h-7 w-7 rounded-full object-cover"
-                  />
-                ) : avatarSeed ? (
-                  <img 
-                    src={`https://api.dicebear.com/7.x/bottts/svg?seed=${avatarSeed}`} 
-                    alt={user.displayName || "Avatar"} 
-                    className="h-7 w-7 rounded-full object-cover"
-                  />
-                ) : (
-                  <UserCircle className="h-7 w-7 text-blue-400" />
-                )
-              ) : (
-                <UserCircle className="h-7 w-7 text-blue-400" />
-              )}
+              <UserCircle className="h-7 w-7 text-blue-400" />
             </button>
             {userMenuOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-zinc-900 border border-zinc-800 rounded-lg shadow-lg z-50 animate-fade-in">

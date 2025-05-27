@@ -2,7 +2,6 @@
 
 import { useLanguage } from "@/contexts/language-context";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ResponsiveRadar } from "@nivo/radar";
 
 export default function EarthBiodiversityChart() {
   const { language } = useLanguage();
@@ -10,45 +9,33 @@ export default function EarthBiodiversityChart() {
   const data = [
     {
       grupo: language === "es" ? "Insectos" : "Insects",
-      especies: 1000000,
-      color: "hsl(120, 70%, 50%)"
+      porcentaje: 10,
+      color: "#38bdf8"
     },
     {
       grupo: language === "es" ? "Plantas" : "Plants",
-      especies: 390000,
-      color: "hsl(150, 70%, 50%)"
+      porcentaje: 3.9,
+      color: "#22d3ee"
     },
     {
       grupo: language === "es" ? "Hongos" : "Fungi",
-      especies: 120000,
-      color: "hsl(30, 70%, 50%)"
+      porcentaje: 1.2,
+      color: "#a3e635"
     },
     {
       grupo: language === "es" ? "Vertebrados" : "Vertebrates",
-      especies: 65000,
-      color: "hsl(200, 70%, 50%)"
+      porcentaje: 0.65,
+      color: "#facc15"
     },
     {
       grupo: language === "es" ? "Moluscos" : "Mollusks",
-      especies: 85000,
-      color: "hsl(270, 70%, 50%)"
+      porcentaje: 0.85,
+      color: "#f472b6"
     },
     {
       grupo: language === "es" ? "Bacterias" : "Bacteria",
-      especies: 10000,
-      color: "hsl(0, 70%, 50%)"
-    }
-  ];
-
-  // Transformar los datos para el gráfico de radar
-  const radarData = [
-    {
-      [language === "es" ? "Insectos" : "Insects"]: 10,
-      [language === "es" ? "Plantas" : "Plants"]: 3.9,
-      [language === "es" ? "Hongos" : "Fungi"]: 1.2,
-      [language === "es" ? "Vertebrados" : "Vertebrates"]: 0.65,
-      [language === "es" ? "Moluscos" : "Mollusks"]: 0.85,
-      [language === "es" ? "Bacterias" : "Bacteria"]: 0.1
+      porcentaje: 0.1,
+      color: "#818cf8"
     }
   ];
 
@@ -60,78 +47,19 @@ export default function EarthBiodiversityChart() {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="h-[300px]">
-          <ResponsiveRadar
-            data={radarData}
-            keys={Object.keys(radarData[0])}
-            indexBy="grupo"
-            maxValue="auto"
-            margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
-            curve="linearClosed"
-            borderWidth={2}
-            borderColor={{ from: "color" }}
-            gridLevels={5}
-            gridShape="circular"
-            gridLabelOffset={15}
-            enableDots={true}
-            dotSize={8}
-            dotColor={{ theme: "background" }}
-            dotBorderWidth={2}
-            dotBorderColor={{ from: "color" }}
-            enableDotLabel={false}
-            colors={{ scheme: "blues" }}
-            fillOpacity={0.25}
-            blendMode="multiply"
-            animate={true}
-            motionConfig="gentle"
-            theme={{
-              text: {
-                fill: "#94a3b8",
-              },
-              axis: {
-                ticks: {
-                  line: {
-                    stroke: "#475569",
-                  },
-                  text: {
-                    fill: "#94a3b8",
-                  },
-                },
-              },
-              grid: {
-                line: {
-                  stroke: "#334155",
-                },
-              },
-            }}
-            legends={[
-              {
-                anchor: "top-left",
-                direction: "column",
-                translateX: -40,
-                translateY: -40,
-                itemWidth: 80,
-                itemHeight: 20,
-                itemTextColor: "#e2e8f0",
-                symbolSize: 12,
-                symbolShape: "circle",
-                effects: [
-                  {
-                    on: "hover",
-                    style: {
-                      itemTextColor: "#fff",
-                    },
-                  },
-                ],
-              },
-            ]}
-            tooltip={({ id, value }) => (
-              <div style={{ background: '#18181b', color: 'white', padding: 12, borderRadius: 8, border: '1px solid #334155', fontWeight: 500 }}>
-                <div>{language === 'es' ? 'Grupo' : 'Group'}: <b>{id}</b></div>
-                <div>{language === 'es' ? 'Porcentaje estimado' : 'Estimated percentage'}: <b>{value}%</b></div>
+        <div className="w-full max-w-xl mx-auto">
+          {data.map((item, idx) => (
+            <div key={idx} className="flex items-center mb-3">
+              <div className="w-32 text-sm text-zinc-200" style={{ minWidth: 90 }}>{item.grupo}</div>
+              <div className="flex-1 h-5 rounded bg-zinc-800 mr-3 overflow-hidden">
+                <div
+                  className="h-5 rounded"
+                  style={{ width: `${item.porcentaje * 10}%`, background: item.color, transition: 'width 0.5s' }}
+                ></div>
               </div>
-            )}
-          />
+              <div className="w-12 text-right text-zinc-300 font-bold">{item.porcentaje}%</div>
+            </div>
+          ))}
         </div>
         <p className="text-sm text-zinc-400 mt-4">
           {language === "es"

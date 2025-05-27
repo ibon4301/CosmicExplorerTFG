@@ -3,14 +3,14 @@ import { db } from "./firebaseConfig";
 
 export interface EbookComment {
   ebookTitle: string;
-  username: string;
+  displayName: string;
   comment: string;
   rating: number;
   createdAt: Timestamp;
   title?: string;
   email?: string | null;
   photoURL?: string | null;
-  avatarSeed?: string | null;
+  userId?: string;
 }
 
 // Guardar un comentario

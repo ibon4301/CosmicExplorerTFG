@@ -361,7 +361,9 @@
     "moons": "Lunas",
     "rings": "Anillos",
     "compare": "Comparación con la Tierra",
-    "backToImage": "Volver a imagen"
+    "backToImage": "Volver a imagen",
+    "magneticField": "Campo Magnético",
+    "rotation": "Rotación"
   },
   "loader": {
     "loading3DModel": "Cargando Modelo 3D...",
@@ -409,7 +411,8 @@
       "passwordChanged": "Contraseña cambiada correctamente",
       "confirm": "Confirmar",
       "randomAvatar": "Elegir avatar al azar",
-      "saveAvatar": "Guardar avatar"
+      "saveAvatar": "Guardar avatar",
+      "verificationEmailSent": "Se ha enviado un email de verificación a tu nueva dirección de correo"
     }
   },
   "plans": {
@@ -440,5 +443,29 @@
     "namePlaceholder": "Nombre en la tarjeta",
     "expiryPlaceholder": "MM/AA",
     "cvcPlaceholder": "CVC"
+  },
+  "venus": {
+    "temperatureChart": {
+      "title": "Temperatura Extrema",
+      "yAxis": "Temperatura (°C)",
+      "xAxis": "Ubicación",
+      "description": "Venus es el planeta más caliente del Sistema Solar, incluso más que Mercurio a pesar de estar más lejos del Sol. Esto se debe a su densa atmósfera de CO₂ que atrapa el calor en un efecto invernadero extremo."
+    },
+    "geologyChart": {
+      "title": "Características Geológicas",
+      "description": "Venus tiene más volcanes que cualquier otro planeta del Sistema Solar, con más de 1.600 volcanes principales y cientos de miles más pequeños. La superficie está dominada por actividad volcánica y presenta extensas llanuras de lava.",
+      "features": {
+        "volcanoes": "Volcanes",
+        "plains": "Llanuras",
+        "craters": "Cráteres",
+        "mountains": "Montañas",
+        "tectonic": "Actividad tectónica"
+      },
+      "legend": {
+        "venus": "Venus",
+        "earth": "Tierra",
+        "mars": "Marte"
+      }
+    }
   }
 }

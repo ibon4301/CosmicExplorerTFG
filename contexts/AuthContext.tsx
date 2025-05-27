@@ -1,8 +1,9 @@
 "use client"
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, User } from "firebase/auth";
-import { app } from "@/lib/firebase/firebaseConfig";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, User, sendPasswordResetEmail } from "firebase/auth";
+import { app, db } from "@/lib/firebase/firebaseConfig";
+import { doc, setDoc } from "firebase/firestore";
 
 interface AuthContextProps {
   user: User | null;
@@ -10,12 +11,11 @@ interface AuthContextProps {
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
   loginWithGoogle: () => Promise<void>;
-  avatarSeed?: string | null;
-  setAvatarSeed?: (seed: string) => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextProps | undefined>(undefined);
+export const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
 
 export function useAuth() {
   const context = useContext(AuthContext);
@@ -26,7 +26,6 @@ export function useAuth() {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [avatarSeed, setAvatarSeedState] = useState<string | null>(null);
   const auth = getAuth(app);
 
   useEffect(() => {
@@ -37,45 +36,45 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => unsubscribe();
   }, [auth]);
 
-  // Simulación: cargar avatarSeed de localStorage (ajusta según tu lógica real)
-  useEffect(() => {
-    const stored = localStorage.getItem("avatarSeed");
-    if (stored) setAvatarSeedState(stored);
-  }, []);
-
-  const setAvatarSeed = async (seed: string) => {
-    setAvatarSeedState(seed);
-    localStorage.setItem("avatarSeed", seed);
-    // Aquí podrías guardar el seed en Firestore si lo necesitas
-  };
-
   const login = async (email: string, password: string) => {
-    setLoading(true);
-    await signInWithEmailAndPassword(auth, email, password);
-    setLoading(false);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      throw error;
+    }
   };
 
   const register = async (email: string, password: string) => {
-    setLoading(true);
-    await createUserWithEmailAndPassword(auth, email, password);
-    setLoading(false);
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      throw error;
+    }
   };
 
   const logout = async () => {
-    setLoading(true);
-    await signOut(auth);
-    setLoading(false);
+    try {
+      await auth.signOut();
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const resetPassword = async (email: string) => {
+    try {
+      await sendPasswordResetEmail(auth, email);
+    } catch (error) {
+      throw error;
+    }
   };
 
   const loginWithGoogle = async () => {
-    setLoading(true);
     const provider = new GoogleAuthProvider();
     await signInWithPopup(auth, provider);
-    setLoading(false);
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, loginWithGoogle, avatarSeed, setAvatarSeed }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, resetPassword, loginWithGoogle }}>
       {children}
     </AuthContext.Provider>
   );

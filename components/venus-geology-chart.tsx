@@ -5,35 +5,35 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ResponsiveRadar } from "@nivo/radar";
 
 export default function VenusGeologyChart() {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
 
   const data = [
     {
-      feature: language === "es" ? "Volcanes" : "Volcanoes",
+      feature: t("venus.geologyChart.features.volcanoes"),
       venus: 85,
       earth: 45,
       mars: 25,
     },
     {
-      feature: language === "es" ? "Llanuras" : "Plains",
+      feature: t("venus.geologyChart.features.plains"),
       venus: 80,
       earth: 40,
       mars: 60,
     },
     {
-      feature: language === "es" ? "Cráteres" : "Craters",
+      feature: t("venus.geologyChart.features.craters"),
       venus: 40,
       earth: 10,
       mars: 90,
     },
     {
-      feature: language === "es" ? "Montañas" : "Mountains",
+      feature: t("venus.geologyChart.features.mountains"),
       venus: 60,
       earth: 70,
       mars: 50,
     },
     {
-      feature: language === "es" ? "Actividad tectónica" : "Tectonic activity",
+      feature: t("venus.geologyChart.features.tectonic"),
       venus: 65,
       earth: 90,
       mars: 15,
@@ -44,7 +44,7 @@ export default function VenusGeologyChart() {
     <Card className="bg-zinc-900 border-zinc-800">
       <CardHeader className="pb-2">
         <CardTitle className="text-amber-300 font-space">
-          {language === "es" ? "Características Geológicas" : "Geological Features"}
+          {t("venus.geologyChart.title")}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -89,17 +89,17 @@ export default function VenusGeologyChart() {
                 data: [
                   {
                     id: "venus",
-                    label: "Venus",
+                    label: t("venus.geologyChart.legend.venus"),
                     color: "#f59e0b",
                   },
                   {
                     id: "earth",
-                    label: language === "es" ? "Tierra" : "Earth",
+                    label: t("venus.geologyChart.legend.earth"),
                     color: "#3b82f6",
                   },
                   {
                     id: "mars",
-                    label: "Mars",
+                    label: t("venus.geologyChart.legend.mars"),
                     color: "#ef4444",
                   },
                 ],
@@ -124,9 +124,7 @@ export default function VenusGeologyChart() {
           />
         </div>
         <p className="text-sm text-zinc-400 mt-4">
-          {language === "es"
-            ? "Venus tiene más volcanes que cualquier otro planeta del Sistema Solar, con más de 1.600 volcanes principales y cientos de miles más pequeños. La superficie está dominada por actividad volcánica y presenta extensas llanuras de lava."
-            : "Venus has more volcanoes than any other planet in the Solar System, with over 1,600 major volcanoes and hundreds of thousands of smaller ones. The surface is dominated by volcanic activity and features extensive lava plains."}
+          {t("venus.geologyChart.description")}
         </p>
       </CardContent>
     </Card>

@@ -44,7 +44,15 @@ export default function MarsAtmosphereChart() {
               </Pie>
               <Tooltip
                 formatter={(value) => [`${value}%`, language === "es" ? "Porcentaje" : "Percentage"]}
-                contentStyle={{ backgroundColor: "rgba(0, 0, 0, 0.8)", border: "none" }}
+                contentStyle={{
+                  backgroundColor: "rgba(0, 0, 0, 0.9)",
+                  border: "none",
+                  color: "#fff",
+                  padding: "8px 12px",
+                  borderRadius: "4px"
+                }}
+                itemStyle={{ color: "#fff" }}
+                labelStyle={{ color: "#fff" }}
               />
               <Legend />
             </PieChart>

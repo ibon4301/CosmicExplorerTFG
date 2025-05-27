@@ -8,130 +8,70 @@ import { Button } from "@/components/ui/button";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { useRouter } from "next/navigation";
-import { updateProfile, updateEmail, reauthenticateWithCredential, EmailAuthProvider, updatePassword } from "firebase/auth";
+import { updateProfile, reauthenticateWithCredential, EmailAuthProvider, updatePassword } from "firebase/auth";
+import { UserCircle } from "lucide-react";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase/firebaseConfig";
 
 export default function ProfilePage() {
-  const { user, avatarSeed, setAvatarSeed } = useAuth();
+  const { user } = useAuth();
   const { t } = useLanguage();
   const router = useRouter();
-  const [editName, setEditName] = useState(false);
-  const [editEmail, setEditEmail] = useState(false);
-  const [name, setName] = useState(user?.displayName || user?.email || "");
-  const [email, setEmail] = useState(user?.email || "");
-  const [tempAvatarSeed, setTempAvatarSeed] = useState<string | null>(null);
-  const [showSaveAvatar, setShowSaveAvatar] = useState(false);
-  const [showPasswordDialog, setShowPasswordDialog] = useState(false);
-  const [showChangePasswordDialog, setShowChangePasswordDialog] = useState(false);
-  const [pendingField, setPendingField] = useState<"name" | "email" | null>(null);
-  const [password, setPassword] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [displayName, setDisplayName] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [showPasswordFields, setShowPasswordFields] = useState(false);
 
   useEffect(() => {
     if (!user) {
       router.push("/");
+    } else {
+      setDisplayName(user.displayName || "");
     }
   }, [user, router]);
 
-  useEffect(() => {
-    if (error || success) {
-      const timer = setTimeout(() => {
-        setError("");
-        setSuccess("");
-      }, 4000);
-      return () => clearTimeout(timer);
-    }
-  }, [error, success]);
+  if (!user) return null;
 
-  // Handler para editar nombre o email (requiere reautenticación)
-  const handleEdit = (field: "name" | "email") => {
-    setPendingField(field);
-    setShowPasswordDialog(true);
-    setError("");
-    setSuccess("");
-  };
-
-  // Guardar cambios de nombre/email
-  const handleSave = async () => {
-    setError("");
-    setSuccess("");
+  const handleUpdateProfile = async () => {
     if (!user) return;
     try {
-      // Reautenticar
-      const credential = EmailAuthProvider.credential(user.email!, password);
-      await reauthenticateWithCredential(user, credential);
-      // Actualizar displayName
-      if (pendingField === "name") {
-        await updateProfile(user, { displayName: name });
-        setSuccess(t("account.profile.profileUpdated"));
-        setEditName(false);
-      }
-      // Actualizar email
-      if (pendingField === "email") {
-        await updateEmail(user, email);
-        setSuccess(t("account.profile.profileUpdated"));
-        setEditEmail(false);
-      }
-      setPassword("");
-    } catch (e: any) {
-      if (e.code === "auth/invalid-credential") {
-        setError(t("account.profile.incorrectPassword"));
-      } else if (e.code === "auth/email-already-in-use" || e.code === "auth/operation-not-allowed") {
-        setError(t("account.profile.emailInUse"));
-      } else {
-        setError(e.message);
-      }
-    } finally {
-      setShowPasswordDialog(false);
+      await updateProfile(user, { displayName });
+      const userRef = doc(db, "users", user.uid);
+      await updateDoc(userRef, { displayName });
+      setSuccess(t("account.profile.profileUpdated"));
+      setError("");
+      setIsEditing(false);
+    } catch (err) {
+      setError(t("account.profile.error"));
     }
   };
 
-  // Cambiar contraseña
   const handleChangePassword = async () => {
-    setPasswordError("");
-    if (!user) return;
+    if (!user || !user.email) return;
+    if (newPassword !== confirmPassword) {
+      setError(t("account.profile.passwordsDontMatch"));
+      return;
+    }
     if (newPassword.length < 6) {
-      setPasswordError(t("account.profile.passwordTooShort"));
+      setError(t("account.profile.passwordTooShort"));
       return;
     }
-    if (newPassword !== confirmNewPassword) {
-      setPasswordError(t("account.profile.passwordsDontMatch"));
-      return;
-    }
+
     try {
-      const credential = EmailAuthProvider.credential(user.email!, password);
+      const credential = EmailAuthProvider.credential(user.email, currentPassword);
       await reauthenticateWithCredential(user, credential);
       await updatePassword(user, newPassword);
-      setPassword("");
-      setNewPassword("");
-      setConfirmNewPassword("");
-      setShowChangePasswordDialog(false);
       setSuccess(t("account.profile.passwordChanged"));
-    } catch (e: any) {
-      if (e.code === "auth/invalid-credential") {
-        setPasswordError(t("account.profile.incorrectPassword"));
-      } else {
-        setPasswordError(e.message);
-      }
-    }
-  };
-
-  // Handler para elegir avatar aleatorio (solo cambia el temporal)
-  const handleRandomAvatar = () => {
-    const randomSeed = Math.random().toString(36).substring(2, 15);
-    setTempAvatarSeed(randomSeed);
-    setShowSaveAvatar(true);
-  };
-
-  // Handler para guardar el avatar elegido
-  const handleSaveAvatar = async () => {
-    if (setAvatarSeed && tempAvatarSeed) {
-      await setAvatarSeed(tempAvatarSeed);
-      setShowSaveAvatar(false);
-      setTempAvatarSeed(null);
+      setError("");
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+    } catch (err) {
+      setError(t("account.profile.incorrectPassword"));
     }
   };
 
@@ -144,175 +84,96 @@ export default function ProfilePage() {
             {t("account.profile.title")}
           </h1>
           <div className="relative flex flex-col items-center gap-2">
-            {user && user.providerData.some(p => p.providerId === "google.com") ? (
-              <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-blue-400 shadow-lg bg-zinc-800 flex items-center justify-center relative">
-                {user.photoURL ? (
-                  <img src={user.photoURL} alt="Avatar" className="object-cover w-full h-full rounded-full" />
-                ) : (
-                  <span className="text-6xl text-blue-400">👤</span>
-                )}
-              </div>
-            ) : (
-              <>
-                <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-blue-400 shadow-lg bg-zinc-800 flex items-center justify-center relative">
-                  <img
-                    src={`https://api.dicebear.com/7.x/bottts/svg?seed=${tempAvatarSeed || avatarSeed || "default"}`}
-                    alt="Avatar"
-                    className="object-cover w-full h-full rounded-full"
+            <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-blue-400 shadow-lg bg-zinc-800 flex items-center justify-center relative">
+              <UserCircle className="h-16 w-16 text-blue-400" />
+            </div>
+          </div>
+          <div className="w-full flex flex-col gap-6 mt-4 items-center text-center">
+            <div className="w-full">
+              <label className="block text-zinc-400 text-sm mb-1 font-semibold tracking-wide text-center">{t("account.profile.username")}</label>
+              {isEditing ? (
+                <div className="flex flex-col items-center gap-2">
+                  <Input
+                    value={displayName}
+                    onChange={(e) => setDisplayName(e.target.value)}
+                    className="flex-1 text-center"
                   />
+                  <div className="flex gap-2">
+                    <Button onClick={handleUpdateProfile} variant="default">
+                      {t("account.profile.save")}
+                    </Button>
+                    <Button onClick={() => setIsEditing(false)} variant="secondary">
+                      {t("account.profile.cancel")}
+                    </Button>
+                  </div>
                 </div>
-                <Button onClick={handleRandomAvatar} variant="secondary" size="sm" className="mt-2">
-                  {t("account.profile.randomAvatar")}
+              ) : (
+                <div className="flex flex-col items-center gap-2">
+                  <span className="text-lg font-semibold text-white drop-shadow-sm text-center">{user?.displayName || user?.email}</span>
+                  <Button onClick={() => setIsEditing(true)} variant="secondary">
+                    {t("account.profile.edit")}
+                  </Button>
+                </div>
+              )}
+            </div>
+            <div className="w-full">
+              <label className="block text-zinc-400 text-sm mb-1 font-semibold tracking-wide text-center">{t("account.profile.email")}</label>
+              <div className="flex flex-col items-center gap-2">
+                <span className="text-lg font-semibold text-white drop-shadow-sm text-center">{user?.email}</span>
+              </div>
+            </div>
+            <div className="w-full">
+              <h3 className="text-lg font-semibold text-blue-400 mb-4">{t("account.profile.changePassword")}</h3>
+              {!showPasswordFields ? (
+                <Button onClick={() => setShowPasswordFields(true)} variant="secondary">
+                  {t("account.profile.changePassword")}
                 </Button>
-                {showSaveAvatar && tempAvatarSeed && (
-                  <Button onClick={handleSaveAvatar} variant="default" size="sm" className="mt-2">
-                    {t("account.profile.saveAvatar")}
-                  </Button>
-                )}
-              </>
-            )}
-          </div>
-          <div className="w-full flex flex-col gap-6 mt-4">
-            <div className="w-full">
-              <label className="block text-zinc-400 text-sm mb-1 font-semibold tracking-wide">{t("account.profile.username")}</label>
-              {editName ? (
-                <div className="flex flex-col sm:flex-row gap-2 items-center animate-fade-in">
-                  <Input value={name} onChange={e => setName(e.target.value)} className="flex-1" />
-                  <Button onClick={() => handleEdit("name") } variant="default">
-                    {t("account.profile.save")}
-                  </Button>
-                  <Button onClick={() => setEditName(false)} variant="secondary">
-                    {t("account.profile.cancel")}
-                  </Button>
-                </div>
               ) : (
-                <div className="flex items-center gap-2">
-                  <span className="text-lg font-semibold text-white drop-shadow-sm">{name || email}</span>
-                  <Button onClick={() => setEditName(true)} variant="secondary" size="sm">
-                    {t("account.profile.edit")}
-                  </Button>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-zinc-400 text-sm mb-1">{t("account.profile.password")}</label>
+                    <Input
+                      type="password"
+                      value={currentPassword}
+                      onChange={(e) => setCurrentPassword(e.target.value)}
+                      placeholder={t("account.profile.password")}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-zinc-400 text-sm mb-1">{t("account.profile.newPassword")}</label>
+                    <Input
+                      type="password"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      placeholder={t("account.profile.newPassword")}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-zinc-400 text-sm mb-1">{t("account.profile.confirmNewPassword")}</label>
+                    <Input
+                      type="password"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      placeholder={t("account.profile.confirmNewPassword")}
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <Button onClick={handleChangePassword} variant="default" className="w-full">
+                      {t("account.profile.confirm")}
+                    </Button>
+                    <Button onClick={() => setShowPasswordFields(false)} variant="secondary" className="w-full">
+                      {t("account.profile.cancel")}
+                    </Button>
+                  </div>
                 </div>
               )}
             </div>
-            <div className="w-full">
-              <label className="block text-zinc-400 text-sm mb-1 font-semibold tracking-wide">{t("account.profile.email")}</label>
-              {editEmail ? (
-                <div className="flex flex-col sm:flex-row gap-2 items-center animate-fade-in">
-                  <Input value={email} onChange={e => setEmail(e.target.value)} className="flex-1" />
-                  <Button onClick={() => handleEdit("email") } variant="default">
-                    {t("account.profile.save")}
-                  </Button>
-                  <Button onClick={() => setEditEmail(false)} variant="secondary">
-                    {t("account.profile.cancel")}
-                  </Button>
-                </div>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <span className="text-lg font-semibold text-white drop-shadow-sm">{email}</span>
-                  <Button onClick={() => setEditEmail(true)} variant="secondary" size="sm">
-                    {t("account.profile.edit")}
-                  </Button>
-                </div>
-              )}
-            </div>
-            <div className="w-full">
-              <Button 
-                onClick={() => setShowChangePasswordDialog(true)}
-                variant="outline" 
-                className="w-full flex items-center justify-center gap-2"
-              >
-                {t("account.profile.changePassword")}
-              </Button>
-            </div>
           </div>
-          {success && (
-            <div className="flex items-center gap-2 text-green-400 text-sm mt-2 animate-fade-in">
-              {success}
-            </div>
-          )}
-          {error && (
-            <div className="flex items-center gap-2 text-red-400 text-sm mt-2 animate-fade-in">
-              {error}
-            </div>
-          )}
+          {error && <div className="text-red-400 mt-2">{error}</div>}
+          {success && <div className="text-green-400 mt-2">{success}</div>}
         </div>
       </main>
       <Footer />
-      {/* Diálogo para reautenticación */}
-      {showPasswordDialog && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
-          <div className="bg-zinc-950 rounded-lg shadow-lg p-6 w-full max-w-md relative animate-fade-in">
-            <h2 className="text-blue-400 font-bold text-lg mb-4">{t("account.profile.confirmPassword")}</h2>
-            <Input
-              type="password"
-              placeholder={t("account.profile.password")}
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              className="mt-4"
-            />
-            <div className="flex gap-2 mt-4">
-              <Button onClick={handleSave} variant="default">
-                {t("account.profile.confirm")}
-              </Button>
-              <Button onClick={() => setShowPasswordDialog(false)} variant="secondary">
-                {t("account.profile.cancel")}
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
-      {/* Diálogo para cambiar contraseña */}
-      {showChangePasswordDialog && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
-          <div className="bg-zinc-950 rounded-lg shadow-lg p-6 w-full max-w-md relative animate-fade-in">
-            <h2 className="text-blue-400 font-bold text-lg mb-4">{t("account.profile.changePassword")}</h2>
-            <Input
-              type="password"
-              placeholder={t("account.profile.password")}
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              className="mt-2"
-            />
-            <Input
-              type="password"
-              placeholder={t("account.profile.newPassword")}
-              value={newPassword}
-              onChange={e => setNewPassword(e.target.value)}
-              className="mt-2"
-            />
-            <Input
-              type="password"
-              placeholder={t("account.profile.confirmNewPassword")}
-              value={confirmNewPassword}
-              onChange={e => setConfirmNewPassword(e.target.value)}
-              className="mt-2"
-            />
-            {passwordError && (
-              <div className="flex items-center gap-2 text-red-400 text-sm animate-fade-in mt-2">
-                {passwordError}
-              </div>
-            )}
-            <div className="flex gap-2 mt-4">
-              <Button onClick={handleChangePassword} variant="default">
-                {t("account.profile.confirm")}
-              </Button>
-              <Button onClick={() => { setShowChangePasswordDialog(false); setPasswordError(""); }} variant="secondary">
-                {t("account.profile.cancel")}
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
-      <style jsx global>{`
-        .glass {
-          background: rgba(24, 28, 44, 0.85);
-          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
-          border-radius: 20px;
-          border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-      `}</style>
     </div>
   );
 } 

@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ResponsiveBar } from "@nivo/bar";
 
 export default function VenusTemperatureChart() {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   
   const data = [
     {
@@ -34,7 +34,7 @@ export default function VenusTemperatureChart() {
     <Card className="bg-zinc-900 border-zinc-800 overflow-hidden">
       <CardHeader className="pb-2">
         <CardTitle className="text-amber-300 font-space">
-          {language === "es" ? "Temperatura Extrema" : "Extreme Temperature"}
+          {t("venus.temperatureChart.title")}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -54,7 +54,7 @@ export default function VenusTemperatureChart() {
               tickSize: 5,
               tickPadding: 5,
               tickRotation: 0,
-              legend: language === "es" ? "Ubicación" : "Location",
+              legend: t("venus.temperatureChart.xAxis"),
               legendPosition: "middle",
               legendOffset: 40,
             }}
@@ -62,7 +62,7 @@ export default function VenusTemperatureChart() {
               tickSize: 5,
               tickPadding: 5,
               tickRotation: 0,
-              legend: language === "es" ? "Temperatura (°C)" : "Temperature (°C)",
+              legend: t("venus.temperatureChart.yAxis"),
               legendPosition: "middle",
               legendOffset: -50,
             }}
@@ -97,7 +97,29 @@ export default function VenusTemperatureChart() {
                   stroke: "#334155",
                 },
               },
+              tooltip: {
+                container: {
+                  background: "#1e293b",
+                  color: "#fff",
+                  fontSize: "13px",
+                  borderRadius: "4px",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.15)"
+                }
+              }
             }}
+            tooltip={({ id, value, indexValue, color }) => (
+              <div
+                style={{
+                  background: "#1e293b",
+                  color: "#fff",
+                  padding: "8px 12px",
+                  borderRadius: "4px",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.15)"
+                }}
+              >
+                <strong style={{ color }}>{t("venus.temperatureChart.yAxis")}</strong> - {indexValue}: <strong>{value}</strong>
+              </div>
+            )}
             role="application"
             ariaLabel={language === "es" ? "Comparación de temperatura de Venus" : "Venus temperature comparison"}
             barAriaLabel={(e) =>
@@ -106,9 +128,7 @@ export default function VenusTemperatureChart() {
           />
         </div>
         <p className="text-sm text-zinc-400 mt-4">
-          {language === "es"
-            ? "Venus es el planeta más caliente del Sistema Solar, incluso más que Mercurio a pesar de estar más lejos del Sol. Esto se debe a su densa atmósfera de CO₂ que atrapa el calor en un efecto invernadero extremo."
-            : "Venus is the hottest planet in the Solar System, even hotter than Mercury despite being farther from the Sun. This is due to its dense CO₂ atmosphere trapping heat in an extreme greenhouse effect."}
+          {t("venus.temperatureChart.description")}
         </p>
       </CardContent>
     </Card>

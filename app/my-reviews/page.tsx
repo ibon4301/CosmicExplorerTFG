@@ -59,7 +59,7 @@ function StarRatingEdit({ value, onChange, max = 5 }: { value: number, onChange:
 }
 
 export default function MyReviewsPage() {
-  const { user, avatarSeed } = useAuth();
+  const { user } = useAuth();
   const { t, language } = useLanguage();
   const router = useRouter();
   const [authChecked, setAuthChecked] = useState(false);
@@ -69,7 +69,6 @@ export default function MyReviewsPage() {
   const [editData, setEditData] = useState({ title: "", comment: "", rating: 0 });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const avatarAlt = (user?.displayName || user?.email || 'avatar') as string;
 
   useEffect(() => {
     if (user === null) {
@@ -185,14 +184,7 @@ export default function MyReviewsPage() {
                       ) : (
                         <div className="flex flex-col gap-1">
                           <div className="flex items-center gap-2">
-                            {/* Avatar actual del usuario autenticado */}
-                            {user?.photoURL ? (
-                              <img src={user.photoURL ? user.photoURL : ""} alt={avatarAlt} className="w-8 h-8 rounded-full object-cover border border-zinc-700" />
-                            ) : avatarSeed ? (
-                              <img src={`https://api.dicebear.com/7.x/bottts/svg?seed=${avatarSeed}`} alt={avatarAlt} className="w-8 h-8 rounded-full object-cover border border-zinc-700" />
-                            ) : (
-                              <UserCircle className="w-8 h-8 text-zinc-500" />
-                            )}
+                            <UserCircle className="h-8 w-8 text-blue-400" />
                             <span className="font-semibold text-white">{review.title}</span>
                             <StarRating value={review.rating} />
                           </div>

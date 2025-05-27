@@ -108,7 +108,7 @@ export default function NewsletterSignup() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={language === "en" ? "Your email address" : "Tu correo electrónico"}
-                  className="w-full px-6 py-4 pr-36 rounded-full bg-blue-950/30 border border-blue-900/50 text-white placeholder-blue-400/70 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-6 py-4 pr-36 rounded-full bg-black border border-blue-900/50 text-white placeholder-blue-400/70 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   disabled={status === "loading" || status === "success"}
                 />
                 <button
