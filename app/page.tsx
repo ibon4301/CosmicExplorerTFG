@@ -3,6 +3,11 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import WelcomeScreen from "@/components/welcome-screen"
+import Hero from "@/components/hero"
+import Features from "@/components/features"
+import AboutUs from "@/components/about-us"
+import PlanetExplorer from "@/components/planet-explorer"
+import ContactForm from "@/components/contact-form"
 
 export default function HomePage() {
   const router = useRouter()
@@ -42,5 +47,13 @@ export default function HomePage() {
   }
 
   // Si el usuario no ha visto la pantalla de bienvenida, mostrarla
-  return <WelcomeScreen onStart={handleStart} />
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-between">
+      <Hero />
+      <Features />
+      <AboutUs />
+      <PlanetExplorer />
+      <ContactForm />
+    </main>
+  )
 }

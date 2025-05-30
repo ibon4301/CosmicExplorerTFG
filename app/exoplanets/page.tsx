@@ -210,14 +210,12 @@ export default function ExoplanetsPage() {
   const exoplanetData = translations[language] || translations.en
 
   return (
-    <div
-      className={`flex min-h-screen flex-col bg-black text-white transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
-    >
+    <div className="w-full px-4 sm:max-w-7xl sm:mx-auto flex min-h-screen flex-col bg-black text-white transition-opacity duration-1000 " style={{boxSizing: 'border-box'}}>
       {/* Header */}
       <Header />
 
       <main className="flex-1 pt-16">
-        {/* Hero Section estilo black holes */}
+        {/* Hero Section */}
         <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-black to-zinc-900 py-0 md:py-0 overflow-hidden">
           {/* Video de fondo */}
           <video

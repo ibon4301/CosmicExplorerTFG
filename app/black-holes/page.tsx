@@ -5,7 +5,6 @@ import Image from "next/image"
 import { ArrowLeft } from "lucide-react"
 import BlackHoleModel from "@/components/black-hole-model"
 import Header from "@/components/header"
-import CustomCursor from "@/components/custom-cursor"
 import { motion } from "framer-motion"
 // Reemplazar el footer existente con el componente Footer
 import Footer from "@/components/footer"

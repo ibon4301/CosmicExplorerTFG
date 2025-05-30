@@ -7,6 +7,7 @@ import { useAuth } from "@/contexts/AuthContext"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import AuthModal from "./AuthModal"
+import MagazinePreview from "./magazine/magazine-preview"
 
 export default function Footer() {
   const { language, t } = useLanguage()
@@ -20,6 +21,29 @@ export default function Footer() {
       setShowAuthModal(true);
     } else {
       router.push("/checkout");
+    }
+  }
+
+  const content = {
+    es: {
+      about: "Sobre Nosotros",
+      contact: "Contacto",
+      collaborate: "Colabora",
+      terms: "Términos y Condiciones",
+      privacy: "Política de Privacidad",
+      newsletter: "Revista",
+      rights: "Todos los derechos reservados",
+      social: "Síguenos"
+    },
+    en: {
+      about: "About Us",
+      contact: "Contact",
+      collaborate: "Collaborate",
+      terms: "Terms & Conditions",
+      privacy: "Privacy Policy",
+      newsletter: "Magazine",
+      rights: "All rights reserved",
+      social: "Follow us"
     }
   }
 
@@ -87,14 +111,15 @@ export default function Footer() {
             <li><Link href="/privacy" className="hover:text-blue-400 transition-colors">{language === "es" ? "Política de privacidad" : "Privacy Policy"}</Link></li>
           </ul>
         </div>
-        {/* Boletín */}
+        {/* Revista */}
         <div>
-          <h4 className="font-bold text-white mb-2">{language === "es" ? "Boletín" : "Newsletter"}</h4>
-          <p className="text-zinc-400 text-sm mb-4">
+          <h4 className="font-bold text-white mb-2">{language === "es" ? "Revista" : "Magazine"}</h4>
+          <p className="text-zinc-400 text-sm mb-2">
             {language === "es"
               ? "Suscríbete para recibir novedades, recursos y noticias del cosmos."
               : "Subscribe to receive news, resources and cosmic updates."}
           </p>
+          <MagazinePreview />
           <button
             onClick={handleSubscribeClick}
             className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded transition-colors block text-center w-full"

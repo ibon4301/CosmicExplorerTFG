@@ -98,21 +98,15 @@ export default function Header() {
   ]
 
   return (
-    <header ref={headerRef} className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/50 backdrop-blur-md font-helvetica">
-      <div className="container flex h-16 items-center justify-between px-4 md:px-6">
+    <header ref={headerRef} className="fixed top-0 left-0 z-50 w-full border-b border-white/10 bg-black/80 backdrop-blur-md font-helvetica">
+      <div className="w-full px-4 sm:max-w-7xl sm:mx-auto flex h-12 md:h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center">
             <motion.div whileHover="hover" variants={logoVariants} className="flex items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                width="24" height="24" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                 className="h-6 w-6 text-blue-400"
               >
                 <circle cx="12" cy="12" r="10" />
@@ -120,14 +114,12 @@ export default function Header() {
                 <path d="M2 12h20" />
               </svg>
             </motion.div>
-          </Link>
-          <Link href="/">
             <motion.span
               whileHover="hover"
               variants={textVariants}
-              className="text-xl font-bold text-blue-400 font-space"
+              className="ml-2 text-xl font-bold text-blue-400 font-space leading-none"
             >
-              Cosmic Explorer
+              Cosmic<br className="block md:hidden" /> Explorer
             </motion.span>
           </Link>
         </div>
@@ -203,10 +195,10 @@ export default function Header() {
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
         >
-          <div className="container bg-zinc-900 px-4 py-4">
-            <nav className="flex flex-col space-y-4">
+          <div className="w-full max-w-full px-4 bg-zinc-900 py-4">
+            <nav className="flex flex-col space-y-4 items-start sm:items-end pl-2 pr-2">
               {navLinks.map((link) => (
-                <div key={link.href} className="flex flex-col">
+                <div key={link.href} className="flex flex-col items-end">
                   {link.subItems ? (
                     <>
                       <button
@@ -221,7 +213,7 @@ export default function Header() {
                         )}
                       </button>
                       {expandedSection === link.href && (
-                        <div className="ml-4 mt-2 flex flex-col space-y-2">
+                        <div className="mr-4 mt-2 flex flex-col space-y-2 items-end">
                           {link.subItems.map((subItem) => (
                             <Link
                               key={subItem.href}
