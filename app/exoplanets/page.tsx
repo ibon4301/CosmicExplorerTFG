@@ -210,7 +210,7 @@ export default function ExoplanetsPage() {
   const exoplanetData = translations[language] || translations.en
 
   return (
-    <div className="w-full px-4 sm:max-w-7xl sm:mx-auto flex min-h-screen flex-col bg-black text-white transition-opacity duration-1000 " style={{boxSizing: 'border-box'}}>
+    <div className="w-full flex min-h-screen flex-col bg-black text-white transition-opacity duration-1000" style={{boxSizing: 'border-box'}}>
       {/* Header */}
       <Header />
 
@@ -228,7 +228,7 @@ export default function ExoplanetsPage() {
             <source src="/videos/exoplanets-hero.mp4" type="video/mp4" />
             Tu navegador no soporta el video.
           </video>
-          <div className="container relative z-10 px-4 md:px-6 flex flex-col items-center justify-center min-h-screen">
+          <div className="relative z-10 flex flex-col items-center justify-center min-h-screen w-full px-4">
             <motion.div
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}

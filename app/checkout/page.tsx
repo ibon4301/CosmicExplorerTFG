@@ -12,46 +12,41 @@ import Footer from "@/components/footer"
 
 const plans = [
   {
-    name: "Basic",
+    name: "Digital",
     price: 4.99,
     features: [
-      "Acceso a ebooks gratuitos",
-      "Noticias espaciales semanales",
-      "Newsletter mensual",
-      "Acceso al foro de la comunidad",
-      "Wallpapers HD exclusivos",
+      "Revista digital mensual",
+      "Acceso a artículos exclusivos online",
+      "Newsletter semanal",
+      "Acceso a la comunidad",
       "1 evento virtual al mes"
     ],
     color: "blue-400",
   },
   {
-    name: "Pro",
+    name: "Premium",
     price: 12.99,
     features: [
-      "Todo lo de Basic",
-      "Revista digital mensual",
-      "Acceso a ebooks premium",
-      "Comentar y valorar contenido",
+      "Todo lo de Digital",
+      "Revista física mensual enviada a tu domicilio",
+      "Acceso anticipado a la revista",
       "Descarga de recursos educativos",
-      "Acceso a eventos presenciales",
-      "Descuentos en merchandising",
-      "2 eventos virtuales al mes"
+      "2 eventos virtuales al mes",
+      "Descuentos en merchandising"
     ],
     color: "purple-400",
   },
   {
-    name: "Explorer",
+    name: "Elite",
     price: 19.99,
     features: [
-      "Todo lo de Pro",
-      "Acceso anticipado a contenido",
-      "Recursos exclusivos de NASA/ESA",
-      "Soporte prioritario 24/7",
+      "Todo lo de Premium",
+      "Ediciones especiales de la revista",
+      "Kit de bienvenida exclusivo",
       "Acceso VIP a eventos",
-      "Revista física mensual",
+      "Soporte prioritario",
       "Contenido personalizado",
-      "Tutorías astronómicas mensuales",
-      "Kit de bienvenida físico"
+      "1 evento presencial al año"
     ],
     color: "pink-400",
   },
@@ -113,7 +108,7 @@ function addOneMonth(date: Date) {
 }
 
 function SubscriptionUpgrade({ userSubscription, user, setUserSubscription, t, router }: SubscriptionUpgradeProps) {
-  const planOrder = ["Basic", "Pro", "Explorer"];
+  const planOrder = ["Digital", "Premium", "Elite"];
   const userPlanIndex = userSubscription ? planOrder.indexOf(userSubscription.plan) : -1;
   const canUpgrade = userPlanIndex > -1 && userPlanIndex < plans.length - 1;
   const nextPlans = canUpgrade ? plans.slice(userPlanIndex + 1) : [];
@@ -305,7 +300,7 @@ function SubscriptionUpgrade({ userSubscription, user, setUserSubscription, t, r
             <div className="flex flex-col items-center justify-center py-12">
               <CheckCircle className="w-16 h-16 text-green-400 mb-4" />
               <div className="text-2xl font-bold mb-2 text-green-400">{t("subscription.success")}</div>
-              <div className="text-zinc-300 mb-6">{t("subscription.thanks")} <span className="font-bold">{upgradePlan ? t(`plans.${upgradePlan.name.toLowerCase()}`) : ''}</span> Cosmic Explorer.</div>
+              <div className="text-zinc-300 mb-6">{t("subscription.thanks")} <span className="font-bold">{upgradePlan && upgradePlan.name ? t(`plans.${upgradePlan.name.toLowerCase()}`) : ''}</span> Cosmic Explorer.</div>
               <button
                 className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition-colors"
                 onClick={() => router.push("/")}

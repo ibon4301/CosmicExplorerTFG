@@ -420,7 +420,10 @@
   "plans": {
     "basic": "Básico",
     "pro": "Pro",
-    "explorer": "Explorer"
+    "explorer": "Explorer",
+    "digital": "Digital",
+    "premium": "Premium",
+    "elite": "Elite"
   },
   "subscription": {
     "active": "Tienes una suscripción activa",
