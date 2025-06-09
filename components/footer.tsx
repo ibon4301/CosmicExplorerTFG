@@ -49,7 +49,7 @@ export default function Footer() {
 
   return (
     <footer className="w-full border-t border-zinc-800 bg-zinc-950 py-12 mt-12">
-      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 font-helvetica">
         {/* Logo y descripción */}
         <div>
           <div className="flex items-center gap-2 mb-2">
@@ -71,7 +71,7 @@ export default function Footer() {
             </svg>
             <span className="text-2xl font-bold text-blue-400 font-space">Cosmic Explorer</span>
           </div>
-          <p className="text-zinc-400 text-sm">
+          <p className="text-zinc-400 text-sm font-helvetica">
             {language === "es"
               ? "Tu portal para explorar el universo, aprender sobre ciencia y descubrir recursos únicos."
               : "Your portal to explore the universe, learn about science, and discover unique resources."}
@@ -114,7 +114,7 @@ export default function Footer() {
         {/* Revista */}
         <div>
           <h4 className="font-bold text-white mb-2">{language === "es" ? "Revista" : "Magazine"}</h4>
-          <p className="text-zinc-400 text-sm mb-2">
+          <p className="text-zinc-400 text-sm font-helvetica mb-2">
             {language === "es"
               ? "Suscríbete para recibir novedades, recursos y noticias del cosmos."
               : "Subscribe to receive news, resources and cosmic updates."}
@@ -128,7 +128,7 @@ export default function Footer() {
           </button>
         </div>
       </div>
-      <div className="text-center text-xs text-zinc-500 mt-8">
+      <div className="text-center text-xs text-zinc-500 mt-8 font-helvetica">
         © {new Date().getFullYear()} Cosmic Explorer. {language === "es" ? "Todos los derechos reservados." : "All rights reserved."}
       </div>
       <AuthModal open={showAuthModal} onClose={() => setShowAuthModal(false)} initialMode="login" />
